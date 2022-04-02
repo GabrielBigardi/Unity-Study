@@ -2,6 +2,7 @@
   "dependencies": {
     "com.gabrielbigardi.spriteanimator": "https://github.com/GabrielBigardi/2D-Sprite-Animator.git",
     "com.gabrielbigardi.statemachine": "https://github.com/GabrielBigardi/State-Machine.git",
+    "com.ricardogodoy.hierarchyseparator": "https://github.com/RicardoQLG/HierarchySeparator.git",
     "com.unity.2d.animation": "5.1.1",
     "com.unity.2d.pixel-perfect": "4.0.1",
     "com.unity.2d.psdimporter": "4.2.0",

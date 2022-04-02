@@ -11,11 +11,11 @@ public class VerletLauncher : MonoBehaviour
 
 	private void Update()
 	{
-		if (InputHandler.Instance.LaunchInput)
+		if (InputHandler.Instance.LaunchInput && isAttached)
 		{
             isAttached = false;
             GameObject.Find("Fire Bomb").GetComponent<Rigidbody2D>().gravityScale = 1f;
-            GameObject.Find("Fire Bomb").GetComponent<Rigidbody2D>().velocity = new Vector2(velocityX, velocityY + 1f);
+            GameObject.Find("Fire Bomb").GetComponent<Rigidbody2D>().velocity = new Vector2(velocityX, velocityY) * 2f;
 		}
 	}
 

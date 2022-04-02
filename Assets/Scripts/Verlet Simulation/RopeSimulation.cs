@@ -60,8 +60,8 @@ namespace Demo
             if (playerVerletLauncher.isAttached)
             {
                 playerTransform.position = lastDot.CurrentPosition + posOffset;
+			    lastDot.CurrentPosition += (Vector3)InputHandler.Instance.PlayerInput * 0.15f * Time.deltaTime;
             }
-			lastDot.CurrentPosition += (Vector3)InputHandler.Instance.PlayerInput * 0.15f * Time.deltaTime;
         }
 
         private static void AddPositionToRenderer(LineRenderer lineRenderer, Vector3 position)

@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "2827a21a8df4d874c8d337e35dd1732a7b3e5d7d"
+      "hash": "56a7385dfd45ec25836e601ff28144c44ae0fde7"
     },
     "com.gabrielbigardi.statemachine": {
       "version": "https://github.com/GabrielBigardi/State-Machine.git",
@@ -13,6 +13,13 @@
       "source": "git",
       "dependencies": {},
       "hash": "bb400f80f77e57cb7b071820a367ca1d35d0e170"
+    },
+    "com.ricardogodoy.hierarchyseparator": {
+      "version": "https://github.com/RicardoQLG/HierarchySeparator.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "9fa99206a3236ce87a61f44294715e0edd950d8b"
     },
     "com.unity.2d.animation": {
       "version": "5.1.1",
