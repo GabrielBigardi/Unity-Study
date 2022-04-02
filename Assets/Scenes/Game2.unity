@@ -551,6 +551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warningPrefab: {fileID: 4410185405641491658, guid: 6df9c35a4cb7eb14aab1eaec5ef169f2, type: 3}
   map: {fileID: 1658469746}
+  availablePositions: []
 --- !u!1 &1658469743
 GameObject:
   m_ObjectHideFlags: 0
