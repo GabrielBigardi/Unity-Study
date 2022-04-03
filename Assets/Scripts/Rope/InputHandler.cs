@@ -12,7 +12,7 @@ public class InputHandler : Singleton<InputHandler>
 	public void OnMouseMovement(InputAction.CallbackContext ctx)
 	{
 		MousePositionScreen = ctx.ReadValue<Vector2>();
-		MousePositionWorld = Camera.main.ScreenToWorldPoint(MousePositionScreen);
+		MousePositionWorld = Camera.main == null ? Vector3.zero : Camera.main.ScreenToWorldPoint(MousePositionScreen);
 	}
 
 	public void OnPlayerInput(InputAction.CallbackContext ctx)
