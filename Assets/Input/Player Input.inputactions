@@ -24,9 +24,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "PlayerLaunchInput",
+                    "name": "PlayerInteraction",
                     "type": "Button",
-                    "id": "769e0638-2d8b-4c01-8e41-49451c7be370",
+                    "id": "9f346545-660a-4e46-864e-f502e61e7693",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -168,12 +168,12 @@
                 },
                 {
                     "name": "",
-                    "id": "9c2d17e3-99d0-420a-b321-2f9c009eee6c",
-                    "path": "<Keyboard>/space",
+                    "id": "aeef0156-745a-4d5e-8191-fc9589071faa",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PlayerLaunchInput",
+                    "action": "PlayerInteraction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
