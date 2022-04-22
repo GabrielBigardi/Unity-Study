@@ -1,22 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using UnityEngine.InputSystem;
-using UnityEngine.Experimental.Rendering.Universal;
 
 public class InteractionManager : Singleton<InteractionManager>
 {
-	public List<Interactable> interactables;
-	public List<Interactable> closeInteractables;
-	public PixelPerfectCamera pixelPerfectCamera;
+	public List<IInteractable> closeInteractables = new();
 
 	IEnumerator coroutine;
-
-	private void Start()
-	{
-		interactables = FindObjectsOfType<Interactable>().ToList();
-	}
 
 	private void OnEnable()
 	{
@@ -44,31 +35,16 @@ public class InteractionManager : Singleton<InteractionManager>
 	IEnumerator CheckInteractableTiles_CR(Vector2 endPosition)
 	{
 		yield return new WaitForSeconds(0.1f);
-		//Debug.Log($"Player ended at {endPosition}, checking all four directions.");
 
-		var interactableUp = Physics2D.OverlapCircle(endPosition + Vector2.up, 0.1f);
-		var interactableDown = Physics2D.OverlapCircle(endPosition + Vector2.down, 0.1f);
-		var interactableLeft = Physics2D.OverlapCircle(endPosition + Vector2.left, 0.1f);
-		var interactableRight = Physics2D.OverlapCircle(endPosition + Vector2.right, 0.1f);
+		List<Vector2> positionsToCheck = new List<Vector2> { endPosition + Vector2.up, endPosition + Vector2.down, endPosition + Vector2.left, endPosition + Vector2.right };
 
-		if (interactableUp != null && interactableUp.TryGetComponent(out Interactable interactableUpObj))
+		foreach (var positionToCheck in positionsToCheck)
 		{
-			interactableUpObj.EnableInteraction();
-		}
-
-		if (interactableDown != null && interactableDown.TryGetComponent(out Interactable interactableDownObj))
-		{
-			interactableDownObj.EnableInteraction();
-		}
-
-		if (interactableLeft != null && interactableLeft.TryGetComponent(out Interactable interactableLeftObj))
-		{
-			interactableLeftObj.EnableInteraction();
-		}
-
-		if (interactableRight != null && interactableRight.TryGetComponent(out Interactable interactableRightObj))
-		{
-			interactableRightObj.EnableInteraction();
+			var interactable = Physics2D.OverlapCircle(positionToCheck, 0.1f);
+			if (interactable != null && interactable.TryGetComponent(out IInteractable interactableObj))
+			{
+				interactableObj.EnableInteraction();
+			}
 		}
 	}
 
@@ -77,12 +53,12 @@ public class InteractionManager : Singleton<InteractionManager>
 		if(coroutine != null)
 			StopCoroutine(coroutine);
 
-		closeInteractables.Clear();
-
-		foreach (var interactable in interactables)
+		foreach (var interactable in closeInteractables)
 		{
 			interactable.DisableInteraction();
 		}
+
+		closeInteractables.Clear();
 	}
 
 	public void HandleInteractions(InputAction.CallbackContext ctx)

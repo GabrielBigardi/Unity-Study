@@ -39,4 +39,13 @@ public class PlayerController : Singleton<PlayerController>
 	{
 		Gizmos.DrawWireSphere(movePos, 0.1f);
 	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if(collision.TryGetComponent(out ICollectable collectable))
+		{
+			collectable.Collect();
+			Destroy(collision.gameObject);
+		}
+	}
 }

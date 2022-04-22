@@ -19,34 +19,6 @@ public class CanvasScalerFixer : MonoBehaviour
 		}
 	}
 
-	private void FixedUpdate()
-	{
-		//Camera.main.transform.Translate(Vector2.right * 0.2f * Time.deltaTime);
-	}
-
-	//private IEnumerator FindCanvasScaleFactor()
-	//{
-	//	var pixelPerfectCamera = FindObjectOfType<PixelPerfectCamera>();
-	//	var canvasScaler = FindObjectOfType<CanvasScaler>();
-	//	var canvas = FindObjectOfType<Canvas>();
-	//	var targetPixelSize = 1f / pixelPerfectCamera.assetsPPU;
-	//
-	//	yield return new WaitForSeconds(0.001f);
-	//
-	//	float difference = Screen.height / pixelPerfectCamera.orthographicSize;
-	//
-	//	// find which number that dividing the difference gives 32
-	//	for (int i = 1; i < 20; i++)
-	//	{
-	//		if (difference / i == (pixelPerfectCamera.assetsPPU * 2))
-	//		{
-	//			Debug.Log($"{difference} -> Scale Factor {i}");
-	//			canvasScaler.scaleFactor = i;
-	//			break;
-	//		}
-	//	}
-	//}
-
 	private IEnumerator FindCanvasScaleFactor()
 	{
 		var pixelPerfectCamera = FindObjectOfType<PixelPerfectCamera>();
