@@ -15,7 +15,7 @@
       "hash": "9fa99206a3236ce87a61f44294715e0edd950d8b"
     },
     "com.unity.2d.animation": {
-      "version": "7.0.4",
+      "version": "7.0.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -136,7 +136,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.mathematics": {
-      "version": "1.2.5",
+      "version": "1.2.6",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
