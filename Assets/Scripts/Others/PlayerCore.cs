@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerCore : MonoBehaviour
 {
-    [field: SerializeField] public PlayerController PlayerController { get; private set; }
+    [field: SerializeField] public PlayerCollisionSenses PlayerCollisionSenses{ get; private set; }
     [field: SerializeField] public PlayerMovement PlayerMovement { get; private set; }
     [field: SerializeField] public PlayerInputHandler PlayerInputHandler { get; private set; }
     [field: SerializeField] public SpriteAnimator SpriteAnimator { get; private set; }
