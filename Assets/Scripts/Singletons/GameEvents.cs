@@ -16,5 +16,5 @@ public class GameEvents : MonoBehaviour
     public static Action<IInteractable> PlayerCloseToInteractable;
 
     public static Action<int> PlayerLifeChanged;
-
+    public static Action PlayerDeath;
 }

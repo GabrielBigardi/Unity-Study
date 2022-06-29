@@ -39,14 +39,15 @@ public class PlayerHealth : MonoBehaviour
         if(newLifesAmount < 0)
         {
             newLifesAmount = 0;
-            GameOver();
+            Death();
         }
 
         GameEvents.PlayerLifeChanged?.Invoke(newLifesAmount);
     }
 
-    public void GameOver()
+    public void Death()
     {
+        GameEvents.PlayerDeath?.Invoke();
         Destroy(gameObject);
     }
 

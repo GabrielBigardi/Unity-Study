@@ -15,6 +15,7 @@ public class InteractionManager : MonoBehaviour
 		GameEvents.PlayerMoveEndEvent += CheckInteractableTiles;
 		GameEvents.PlayerCloseToInteractable += AddCloseInteractable;
 		GameEvents.PlayerInteractionInput += HandleInteractions;
+		GameEvents.PlayerDeath += () => ClosestInteractables.ForEach((IInteractable interactable) => interactable.DisableInteraction());
 	}
 
 	private void OnDisable()
@@ -23,6 +24,7 @@ public class InteractionManager : MonoBehaviour
 		GameEvents.PlayerMoveEndEvent -= CheckInteractableTiles;
 		GameEvents.PlayerCloseToInteractable -= AddCloseInteractable;
 		GameEvents.PlayerInteractionInput -= HandleInteractions;
+		GameEvents.PlayerDeath -= () => ClosestInteractables.ForEach((IInteractable interactable) => interactable.DisableInteraction());
 	}
 
 	private void CheckInteractableTiles(Vector2 endPosition)
