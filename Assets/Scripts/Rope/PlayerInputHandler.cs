@@ -9,7 +9,7 @@ public enum InputAxis
 	Y
 }
 
-public class InputHandler : MonoBehaviour
+public class PlayerInputHandler : MonoBehaviour
 {
     public Vector2 MousePositionScreen { get; private set; }
 	public Vector2 MousePositionWorld { get; private set; }

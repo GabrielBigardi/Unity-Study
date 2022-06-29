@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InteractionManager : MonoBehaviour
+public class PlayerInteractionHandler : MonoBehaviour
 {
 	public List<IInteractable> ClosestInteractables = new();
 

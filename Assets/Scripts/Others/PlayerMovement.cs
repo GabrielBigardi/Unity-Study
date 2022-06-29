@@ -21,9 +21,9 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Update()
 	{
-		if (_playerCore.PlayerInput.PlayerInput != Vector2.zero && !_playerCore.PlayerMovement.IsMoving)
+		if (_playerCore.PlayerInputHandler.PlayerInput != Vector2.zero && !_playerCore.PlayerMovement.IsMoving)
 		{
-			_playerCore.PlayerMovement.MovePos = (Vector2)transform.position + _playerCore.PlayerInput.PlayerInput;
+			_playerCore.PlayerMovement.MovePos = (Vector2)transform.position + _playerCore.PlayerInputHandler.PlayerInput;
 
 			if (CanWalkTo(_playerCore.PlayerMovement.MovePos))
 			{
