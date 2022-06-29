@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicManager : Singleton<SFXManager>
+public class MusicManager : MonoBehaviour
 {
 	public AudioSource source;
 	public AudioClip[] clips;

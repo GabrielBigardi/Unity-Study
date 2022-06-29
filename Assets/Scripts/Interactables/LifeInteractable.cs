@@ -10,18 +10,17 @@ public class LifeInteractable : MonoBehaviour, IInteractable
 
 	public void DisableInteraction()
 	{
-		//InteractionManager.Instance.closeInteractables.Remove(this);
 		interactionSprite.SetActive(false);
 	}
 
 	public void EnableInteraction()
 	{
-		InteractionManager.Instance.closeInteractables.Add(this);
+		GameEvents.PlayerCloseToInteractable?.Invoke(this);
 		interactionSprite.SetActive(true);
 	}
 
 	public void Interact()
 	{
-		LifeManager.Instance.AddLifes(lifesToAdd);
+		GameEvents.PlayerInteractionCompleted?.Invoke(this);
 	}
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraShakeManager : Singleton<CameraShakeManager>
+public class CameraShakeManager : MonoBehaviour
 {
 	public void Shake(float duration, float magnitude)
 	{

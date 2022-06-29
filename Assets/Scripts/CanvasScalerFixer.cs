@@ -29,6 +29,6 @@ public class CanvasScalerFixer : MonoBehaviour
 		float difference = Screen.height / pixelPerfectCamera.orthographicSize;
 		float newScaleFactor = difference / (pixelPerfectCamera.assetsPPU * 2);
 		canvasScaler.scaleFactor = newScaleFactor;
-		Debug.Log(newScaleFactor);
+		//Debug.Log(newScaleFactor);
 	}
 }

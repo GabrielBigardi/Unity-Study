@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LifeCollectable : MonoBehaviour, ICollectable
 {
-	public void Collect()
+    public void Collect()
 	{
-		LifeManager.Instance.AddLifes(1);
+        GameEvents.PlayerCollectedItem?.Invoke(this);
 	}
 }

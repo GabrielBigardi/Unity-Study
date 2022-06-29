@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InteractionManager : Singleton<InteractionManager>
+public class InteractionManager : MonoBehaviour
 {
-	public List<IInteractable> closeInteractables = new();
+	public List<IInteractable> ClosestInteractables = new();
 
 	IEnumerator coroutine;
 
@@ -13,12 +13,16 @@ public class InteractionManager : Singleton<InteractionManager>
 	{
 		GameEvents.PlayerMoveStartEvent += ResetInteractables;
 		GameEvents.PlayerMoveEndEvent += CheckInteractableTiles;
+		GameEvents.PlayerCloseToInteractable += AddCloseInteractable;
+		GameEvents.PlayerInteractionInput += HandleInteractions;
 	}
 
 	private void OnDisable()
 	{
 		GameEvents.PlayerMoveStartEvent -= ResetInteractables;
 		GameEvents.PlayerMoveEndEvent -= CheckInteractableTiles;
+		GameEvents.PlayerCloseToInteractable -= AddCloseInteractable;
+		GameEvents.PlayerInteractionInput -= HandleInteractions;
 	}
 
 	private void CheckInteractableTiles(Vector2 endPosition)
@@ -26,7 +30,7 @@ public class InteractionManager : Singleton<InteractionManager>
 		if (coroutine != null)
 			StopCoroutine(coroutine);
 
-		closeInteractables.Clear();
+		ClosestInteractables.Clear();
 
 		coroutine = CheckInteractableTiles_CR(endPosition);
 		StartCoroutine(coroutine);
@@ -53,22 +57,27 @@ public class InteractionManager : Singleton<InteractionManager>
 		if(coroutine != null)
 			StopCoroutine(coroutine);
 
-		foreach (var interactable in closeInteractables)
+		foreach (var interactable in ClosestInteractables)
 		{
 			interactable.DisableInteraction();
 		}
 
-		closeInteractables.Clear();
+		ClosestInteractables.Clear();
 	}
 
 	public void HandleInteractions(InputAction.CallbackContext ctx)
 	{
 		if (ctx.started)
 		{
-			for (int i = closeInteractables.Count - 1; i >= 0; i--)
+			for (int i = ClosestInteractables.Count - 1; i >= 0; i--)
 			{
-				closeInteractables[i].Interact();
+				ClosestInteractables[i].Interact();
 			}
 		}
+	}
+
+	public void AddCloseInteractable(IInteractable interactable)
+    {
+		ClosestInteractables.Add(interactable);
 	}
 }

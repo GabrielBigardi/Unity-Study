@@ -9,7 +9,7 @@ public enum InputAxis
 	Y
 }
 
-public class InputHandler : Singleton<InputHandler>
+public class InputHandler : MonoBehaviour
 {
     public Vector2 MousePositionScreen { get; private set; }
 	public Vector2 MousePositionWorld { get; private set; }
@@ -59,5 +59,10 @@ public class InputHandler : Singleton<InputHandler>
         {
             PlayerInput = Vector2.zero;
         }
+    }
+
+    public void OnPlayerInteraction(InputAction.CallbackContext ctx)
+    {
+        GameEvents.PlayerInteractionInput?.Invoke(ctx);
     }
 }
