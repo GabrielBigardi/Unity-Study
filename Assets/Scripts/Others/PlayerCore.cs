@@ -9,4 +9,5 @@ public class PlayerCore : MonoBehaviour
     [field: SerializeField] public PlayerMovement PlayerMovement { get; private set; }
     [field: SerializeField] public InputHandler PlayerInput { get; private set; }
     [field: SerializeField] public SpriteAnimator SpriteAnimator { get; private set; }
+    [field: SerializeField] public PlayerHealth PlayerHealth { get; private set; }
 }

@@ -14,4 +14,7 @@ public class GameEvents : MonoBehaviour
     public static Action<InputAction.CallbackContext> PlayerInteractionInput;
     public static Action<IInteractable> PlayerInteractionCompleted;
     public static Action<IInteractable> PlayerCloseToInteractable;
+
+    public static Action<int> PlayerLifeChanged;
+
 }
