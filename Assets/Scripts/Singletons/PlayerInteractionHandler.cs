@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteractionHandler : MonoBehaviour
 {
+	public LayerMask NotIgnoredLayers;
 	public List<IInteractable> ClosestInteractables = new();
 
 	IEnumerator coroutine;
@@ -46,7 +47,7 @@ public class PlayerInteractionHandler : MonoBehaviour
 
 		foreach (var positionToCheck in positionsToCheck)
 		{
-			var interactable = Physics2D.OverlapCircle(positionToCheck, 0.1f);
+			var interactable = Physics2D.OverlapCircle(positionToCheck, 0.1f, NotIgnoredLayers);
 			if (interactable != null && interactable.TryGetComponent(out IInteractable interactableObj))
 			{
 				interactableObj.EnableInteraction();
