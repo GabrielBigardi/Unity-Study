@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
 		_fadeImage.color = Color.black;
 		_fadeImage.DOColor(Color.clear, 1f);
 
+		Debug.Log(new Color().FromHex("#ff0000"));
 	}
 
     public void RefreshLifeText(int newLifes)
