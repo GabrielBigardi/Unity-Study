@@ -1,25 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GBD.SaveSystem;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [field: SerializeField]
     public int CurrentLifes { get; private set; }
+
     private void OnEnable()
     {
+        SaveSystem.LoadedGameData += LoadedGameData;
         GameEvents.PlayerInteractionCompleted += HandlePlayerInteraction;
         GameEvents.PlayerCollectedItem += HandlePlayerCollect;
     }
 
     private void OnDisable()
     {
+        SaveSystem.LoadedGameData -= LoadedGameData;
         GameEvents.PlayerInteractionCompleted -= HandlePlayerInteraction;
         GameEvents.PlayerCollectedItem -= HandlePlayerCollect;
     }
 
-    void Start()
+    public void LoadedGameData(string loadedJson)
     {
-        SetLifes(1);
+        var saveData = JsonUtility.FromJson<SaveData>(loadedJson);
+        SetLifes(saveData.testInt);
     }
 
     public void AddLifes(int amount)

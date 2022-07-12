@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
 		Debug.Log(new Color().FromHex("#ff0000"));
 	}
 
-    public void RefreshLifeText(int newLifes)
+	public void RefreshLifeText(int newLifes)
 	{
 		_lifeText.SetTextOutline(newLifes.ToString());
 	}
