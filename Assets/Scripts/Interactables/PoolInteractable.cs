@@ -2,8 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct Fish
+{
+	public string Name;
+	public string Description;
+	public int BasePrice;
+	public int BaseExp;
+	public int TimeRangeMin;
+	public int TimeRangeMax;
+	public int InchesMinSize;
+	public int InchesMaxSize;
+	public int Difficulty;
+}
+
 public class PoolInteractable : MonoBehaviour, IInteractable
 {
+	[NonReorderable] public List<Fish> FishesInPool;
+
 	public bool CanBeInteracted = true;
 
 	private void OnEnable()
@@ -34,7 +50,7 @@ public class PoolInteractable : MonoBehaviour, IInteractable
 	{
 		if (!CanBeInteracted) return;
 
-		GameEvents.PlayerFishingStarted?.Invoke();
+		GameEvents.PlayerFishingStarted?.Invoke(FishesInPool);
 		DisableInteraction();
 		CanBeInteracted = false;
 	}

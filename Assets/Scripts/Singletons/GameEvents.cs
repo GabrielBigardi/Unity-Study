@@ -1,5 +1,6 @@
 using GBD.SaveSystem;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,6 +18,6 @@ public class GameEvents : MonoBehaviour
     public static Action<int> PlayerLifeChanged;
     public static Action PlayerDeath;
 
-    public static Action PlayerFishingStarted;
+    public static Action<List<Fish>> PlayerFishingStarted;
     public static Action PlayerFishingEnded;
 }
