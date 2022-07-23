@@ -11,8 +11,21 @@ public class PlayerMovement : MonoBehaviour
 	public bool IsMoving;
 	public Vector2 MovePos;
 	public float MoveDuration;
+	bool CanMove = true;
 
 	public bool CanWalkTo(Vector2 point) => !Physics2D.OverlapCircle(MovePos, 0.1f, WhatIsNotWalkable);
+
+	private void OnEnable()
+	{
+		GameEvents.PlayerFishingStarted += OnPlayerFishingStarted;
+		GameEvents.PlayerFishingEnded += OnPlayerFishingEnded;
+	}
+
+	private void OnDisable()
+	{
+		GameEvents.PlayerFishingStarted -= OnPlayerFishingStarted;
+		GameEvents.PlayerFishingEnded -= OnPlayerFishingEnded;
+	}
 
 	private void Start()
 	{
@@ -21,13 +34,13 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Update()
 	{
-		if (_playerCore.PlayerInputHandler.PlayerInput != Vector2.zero && !_playerCore.PlayerMovement.IsMoving)
+		if (_playerCore.PlayerInputHandler.PlayerInput != Vector2.zero && !IsMoving && CanMove)
 		{
-			_playerCore.PlayerMovement.MovePos = (Vector2)transform.position + _playerCore.PlayerInputHandler.PlayerInput;
+			MovePos = (Vector2)transform.position + _playerCore.PlayerInputHandler.PlayerInput;
 
-			if (CanWalkTo(_playerCore.PlayerMovement.MovePos))
+			if (CanWalkTo(MovePos))
 			{
-				Vector2 normalizedDistance = (_playerCore.PlayerMovement.MovePos - (Vector2)transform.position).normalized;
+				Vector2 normalizedDistance = (MovePos - (Vector2)transform.position).normalized;
 
 				if (normalizedDistance == Vector2.up)
 					_playerCore.SpriteAnimator.PlayIfNotPlaying("Up");
@@ -59,6 +72,16 @@ public class PlayerMovement : MonoBehaviour
 		IsMoving = false;
 
 		GameEvents.PlayerMoveEndEvent?.Invoke(whereToMove);
+	}
+
+	private void OnPlayerFishingStarted()
+	{
+		CanMove = false;
+	}
+
+	private void OnPlayerFishingEnded()
+	{
+		CanMove = true;
 	}
 
 	private void OnDrawGizmos()

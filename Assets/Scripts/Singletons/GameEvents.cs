@@ -16,4 +16,7 @@ public class GameEvents : MonoBehaviour
 
     public static Action<int> PlayerLifeChanged;
     public static Action PlayerDeath;
+
+    public static Action PlayerFishingStarted;
+    public static Action PlayerFishingEnded;
 }

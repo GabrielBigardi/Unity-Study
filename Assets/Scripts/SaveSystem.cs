@@ -22,8 +22,8 @@ namespace GBD.SaveSystem
 
     public class SaveSystem
     {
-        public static Action SavedGameData;
-        public static Action<string> LoadedGameData;
+        public static event Action SavedGameData;
+        public static event Action<string> LoadedGameData;
 
         public static bool SaveGame<T>(string saveName, T serializableObject)
         {

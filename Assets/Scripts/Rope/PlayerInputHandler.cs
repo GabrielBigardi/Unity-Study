@@ -13,6 +13,7 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public Vector2 MousePositionScreen { get; private set; }
 	public Vector2 MousePositionWorld { get; private set; }
+    public bool MouseLeftButton { get; private set; }
 
     public Vector2 RawPlayerInput { get; private set; }
 	public Vector2 PlayerInput { get; private set; }
@@ -21,6 +22,15 @@ public class PlayerInputHandler : MonoBehaviour
 	{
 		MousePositionScreen = ctx.ReadValue<Vector2>();
 		MousePositionWorld = Camera.main == null ? Vector3.zero : Camera.main.ScreenToWorldPoint(MousePositionScreen);
+	}
+
+    public void OnMouseLeftButton(InputAction.CallbackContext ctx)
+	{
+        if (ctx.started)
+            MouseLeftButton = true;
+
+        if (ctx.canceled)
+            MouseLeftButton = false;
 	}
 
 	public void OnPlayerInput(InputAction.CallbackContext ctx)

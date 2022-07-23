@@ -28,7 +28,7 @@ public class PlayerInteractionHandler : MonoBehaviour
 		GameEvents.PlayerDeath -= () => ClosestInteractables.ForEach((IInteractable interactable) => interactable.DisableInteraction());
 	}
 
-	private void CheckInteractableTiles(Vector2 endPosition)
+	public void CheckInteractableTiles(Vector2 endPosition)
 	{
 		if (coroutine != null)
 			StopCoroutine(coroutine);
