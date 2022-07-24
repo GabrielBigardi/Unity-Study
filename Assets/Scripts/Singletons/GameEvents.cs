@@ -20,4 +20,7 @@ public class GameEvents : MonoBehaviour
 
     public static Action<List<Fish>> PlayerFishingStarted;
     public static Action PlayerFishingEnded;
+
+    public static Action<IItem> PlayerItemAdded;
+    public static Action<IItem> PlayerItemRemoved;
 }

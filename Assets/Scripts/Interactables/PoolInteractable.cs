@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct Fish
+public struct Fish : IItem
 {
-	public string Name;
-	public string Description;
+	[field: SerializeField] public string Name { get; private set; }
+	[field: SerializeField] public string Description { get; private set; }
+	[field: SerializeField] public Sprite Sprite { get; private set; }
 	public int BasePrice;
 	public int BaseExp;
 	public int TimeRangeMin;

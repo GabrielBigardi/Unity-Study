@@ -84,11 +84,19 @@ public class PlayerFishingHandler : MonoBehaviour
 
 	private void CatchRandomFish()
 	{
+		StartCoroutine(FishPopup_CR());
+	}
+
+	IEnumerator FishPopup_CR()
+	{
 		Fish randomFish = PossibleFishes.RandomElement();
+		Debug.Log($"You got a {randomFish.Name}");
 		FishName.SetText(randomFish.Name);
 		FishLength.SetText($"{Random.Range(randomFish.InchesMinSize, randomFish.InchesMaxSize)} in.");
 		FishPopupPanel.SetActive(true);
-		Debug.Log($"You got a {randomFish.Name}");
+		GameEvents.PlayerItemAdded?.Invoke(randomFish);
+		yield return new WaitForSeconds(2f);
+		FishPopupPanel.SetActive(false);
 	}
 
 	public void OnPlayerFishingStarted(List<Fish> possibleFishes)
