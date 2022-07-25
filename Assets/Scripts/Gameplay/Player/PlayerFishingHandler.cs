@@ -92,6 +92,7 @@ public class PlayerFishingHandler : MonoBehaviour
 		Fish randomFish = PossibleFishes.RandomElement();
 		Debug.Log($"You got a {randomFish.Name}");
 		FishName.SetText(randomFish.Name);
+		FishIcon.sprite = randomFish.Sprite;
 		FishLength.SetText($"{Random.Range(randomFish.InchesMinSize, randomFish.InchesMaxSize)} in.");
 		FishPopupPanel.SetActive(true);
 		GameEvents.PlayerItemAdded?.Invoke(randomFish);
