@@ -5,7 +5,7 @@ using TMPro;
 
 public class PlayerFishingHandler : MonoBehaviour
 {
-	public List<Fish> PossibleFishes;
+	public List<FishItem> PossibleFishes;
     public GameObject FishingPanel;
 	public SpriteRenderer FishingCatchBar;
 	public SpriteRenderer FishingProgressBar;
@@ -89,7 +89,7 @@ public class PlayerFishingHandler : MonoBehaviour
 
 	IEnumerator FishPopup_CR()
 	{
-		Fish randomFish = PossibleFishes.RandomElement();
+		FishItem randomFish = PossibleFishes.RandomElement();
 		Debug.Log($"You got a {randomFish.Name}");
 		FishName.SetText(randomFish.Name);
 		FishIcon.sprite = randomFish.Sprite;
@@ -100,7 +100,7 @@ public class PlayerFishingHandler : MonoBehaviour
 		FishPopupPanel.SetActive(false);
 	}
 
-	public void OnPlayerFishingStarted(List<Fish> possibleFishes)
+	public void OnPlayerFishingStarted(List<FishItem> possibleFishes)
 	{
 		FishPopupPanel.SetActive(false);
 		PossibleFishes = possibleFishes;

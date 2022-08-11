@@ -1,32 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using GBD.SaveSystem;
+using UnityEngine;
+
+[System.Serializable]
+public class SaveData
+{
+	public PlayerInventory PlayerInventory;
+
+	public SaveData(PlayerInventory playerInventory)
+	{
+		this.PlayerInventory = playerInventory;
+	}
+}
 
 public class PlayerSaveHandler : MonoBehaviour
 {
-    private void OnEnable()
-    {
-        SaveSystem.LoadedGameData += OnLoadGame;
-    }
+	private void Start()
+	{
+		SaveSystem.LoadGame<SaveData>("TestSave");
+	}
 
-    private void OnDisable()
-    {
-        SaveSystem.LoadedGameData -= OnLoadGame;
-    }
+	private void OnApplicationQuit()
+	{
+		SaveSystem.SaveGame("TestSave", new SaveData(GetComponent<PlayerInventoryHandler>().PlayerInventory));
+	}
 
-    private void Start()
-    {
-        SaveSystem.LoadGame<SaveData>("TestSave");
-    }
-
-    private void OnApplicationQuit()
-    {
-        SaveSystem.SaveGame("TestSave", new SaveData("teste", GetComponent<PlayerCore>().PlayerHealth.CurrentLifes));
-    }
-
-    private void OnLoadGame(string loadedJson)
-    {
-        var loadedData = JsonUtility.FromJson<SaveData>(loadedJson);
-    }
+	//private void OnLoadGame(string loadedJson)
+	//{
+	//    var loadedData = JsonUtility.FromJson<SaveData>(loadedJson);
+	//}
 }

@@ -10,22 +10,14 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnEnable()
     {
-        SaveSystem.LoadedGameData += LoadedGameData;
         GameEvents.PlayerInteractionCompleted += HandlePlayerInteraction;
         GameEvents.PlayerCollectedItem += HandlePlayerCollect;
     }
 
     private void OnDisable()
     {
-        SaveSystem.LoadedGameData -= LoadedGameData;
         GameEvents.PlayerInteractionCompleted -= HandlePlayerInteraction;
         GameEvents.PlayerCollectedItem -= HandlePlayerCollect;
-    }
-
-    public void LoadedGameData(string loadedJson)
-    {
-        var saveData = JsonUtility.FromJson<SaveData>(loadedJson);
-        SetLifes(saveData.testInt);
     }
 
     public void AddLifes(int amount)

@@ -6,7 +6,7 @@ using TMPro;
 
 public class InventorySlot : MonoBehaviour
 {
-    public IItem SlotItem;
+    public Item SlotItem;
     public int SlotAmount;
 
     public Image SlotIconImage;

@@ -2,24 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public struct Fish : IItem
-{
-	[field: SerializeField] public string Name { get; private set; }
-	[field: SerializeField] public string Description { get; private set; }
-	[field: SerializeField] public Sprite Sprite { get; private set; }
-	public int BasePrice;
-	public int BaseExp;
-	public int TimeRangeMin;
-	public int TimeRangeMax;
-	public int InchesMinSize;
-	public int InchesMaxSize;
-	public int Difficulty;
-}
-
 public class PoolInteractable : MonoBehaviour, IInteractable
 {
-	[NonReorderable] public List<Fish> FishesInPool;
+	[NonReorderable] public List<FishItem> FishesInPool;
 
 	public bool CanBeInteracted = true;
 

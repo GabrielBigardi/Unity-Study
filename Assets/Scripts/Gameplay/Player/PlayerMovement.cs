@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 		GameEvents.PlayerMoveEndEvent?.Invoke(whereToMove);
 	}
 
-	private void OnPlayerFishingStarted(List<Fish> possibleFishes)
+	private void OnPlayerFishingStarted(List<FishItem> possibleFishes)
 	{
 		CanMove = false;
 	}

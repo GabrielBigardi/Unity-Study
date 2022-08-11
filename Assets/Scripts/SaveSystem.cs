@@ -7,19 +7,6 @@ using UnityEngine;
 
 namespace GBD.SaveSystem
 {
-    [System.Serializable]
-    public class SaveData
-    {
-        public string testString;
-        public int testInt;
-
-        public SaveData(string testString, int testInt)
-        {
-            this.testString = testString;
-            this.testInt = testInt;
-        }
-    }
-
     public class SaveSystem
     {
         public static event Action SavedGameData;
