@@ -37,7 +37,7 @@ namespace GBD.SaveSystem
 
             if (!File.Exists(path))
             {
-                Debug.LogError($"File not found at path: {path}");
+                Debug.LogWarning($"File not found at path: {path}, nothing will be loaded.");
                 return false;
             }
 
@@ -57,7 +57,7 @@ namespace GBD.SaveSystem
 
             if (!File.Exists(path))
             {
-                Debug.LogError($"File not found at path: {path}");
+                Debug.LogWarning($"File not found at path: {path}, nothing will be loaded.");
                 return false;
             }
 
