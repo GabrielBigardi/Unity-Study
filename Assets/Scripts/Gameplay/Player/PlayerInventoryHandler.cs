@@ -16,19 +16,19 @@ public class PlayerInventoryHandler : MonoBehaviour
 
 	private void OnEnable()
 	{
-		SaveSystem.LoadedGameData += OnLoadedGameData;
+		SaveSystem.GameDataLoaded += OnGameDataLoaded;
 		GameEvents.PlayerItemAdded += OnPlayerItemAdded;
 		GameEvents.PlayerItemRemoved += OnPlayerItemRemoved;
 	}
 
 	private void OnDisable()
 	{
-		SaveSystem.LoadedGameData -= OnLoadedGameData;
+		SaveSystem.GameDataLoaded -= OnGameDataLoaded;
 		GameEvents.PlayerItemAdded -= OnPlayerItemAdded;
 		GameEvents.PlayerItemRemoved -= OnPlayerItemRemoved;
 	}
 
-	public void OnLoadedGameData(string loadedJson)
+	public void OnGameDataLoaded(string loadedJson)
 	{
 		var loadedData = JsonUtility.FromJson<SaveData>(loadedJson);
 		PlayerInventory = loadedData.PlayerInventory;

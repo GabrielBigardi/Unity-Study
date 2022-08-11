@@ -1,7 +1,5 @@
 using GBD.SaveSystem.EncryptionDecryptionUsingSymmetricKey;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -9,8 +7,8 @@ namespace GBD.SaveSystem
 {
     public class SaveSystem
     {
-        public static event Action SavedGameData;
-        public static event Action<string> LoadedGameData;
+        public static event Action GameDataSaved;
+        public static event Action<string> GameDataLoaded;
 
         public static bool SaveGame<T>(string saveName, T serializableObject)
         {
@@ -23,7 +21,7 @@ namespace GBD.SaveSystem
             if (File.Exists(path))
             {
                 Debug.Log("Saved successfully!");
-                SavedGameData?.Invoke();
+                GameDataSaved?.Invoke();
                 return true;
             }
             else
@@ -48,7 +46,7 @@ namespace GBD.SaveSystem
             Debug.Log(decryptedJson);
 
             Debug.Log($"Loaded {loadName} successfully!");
-            LoadedGameData?.Invoke(decryptedJson);
+            GameDataLoaded?.Invoke(decryptedJson);
             return true;
         }
 
@@ -69,7 +67,7 @@ namespace GBD.SaveSystem
             serializableObject = JsonUtility.FromJson<T>(decryptedJson);
 
             Debug.Log($"Loaded {loadName} successfully!");
-            LoadedGameData?.Invoke(decryptedJson);
+            GameDataLoaded?.Invoke(decryptedJson);
             return true;
         }
     }
