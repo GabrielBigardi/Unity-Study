@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.gabrielbigardi.savesystem": {
+      "version": "file:Generic-Save-System-For-Unity",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.gabrielbigardi.statemachine": {
       "version": "https://github.com/GabrielBigardi/State-Machine.git",
       "depth": 0,
