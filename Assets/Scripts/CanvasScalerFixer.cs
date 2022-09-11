@@ -4,10 +4,14 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.UI;
 
+[ExecuteInEditMode]
 public class CanvasScalerFixer : MonoBehaviour
 {
 	private int lastScreenWidth = 0;
 	private int lastScreenHeight = 0;
+
+	[SerializeField] private PixelPerfectCamera _pixelPerfectCamera;
+	[SerializeField] private CanvasScaler _canvasScaler;
 
 	void Update()
     {
@@ -21,14 +25,11 @@ public class CanvasScalerFixer : MonoBehaviour
 
 	private IEnumerator FindCanvasScaleFactor()
 	{
-		var pixelPerfectCamera = FindObjectOfType<PixelPerfectCamera>();
-		var canvasScaler = FindObjectOfType<CanvasScaler>();
-	
 		yield return new WaitForSeconds(0.001f);
 	
-		float difference = Screen.height / pixelPerfectCamera.orthographicSize;
-		float newScaleFactor = difference / (pixelPerfectCamera.assetsPPU * 2);
-		canvasScaler.scaleFactor = newScaleFactor;
+		float difference = Screen.height / _pixelPerfectCamera.orthographicSize;
+		float newScaleFactor = difference / (_pixelPerfectCamera.assetsPPU * 2);
+		_canvasScaler.scaleFactor = newScaleFactor;
 		//Debug.Log(newScaleFactor);
 	}
 }
