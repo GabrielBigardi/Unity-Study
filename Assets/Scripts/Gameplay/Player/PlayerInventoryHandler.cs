@@ -28,9 +28,13 @@ public class PlayerInventoryHandler : MonoBehaviour
 		GameEvents.PlayerItemRemoved -= OnPlayerItemRemoved;
 	}
 
-	public void OnGameDataLoaded(string loadedJson)
+	public void OnGameDataLoaded(object loadedJson)
 	{
-		var loadedData = JsonUtility.FromJson<SaveData>(loadedJson);
+		var loadedData = loadedJson as SaveData;
+		foreach (var test in loadedData.PlayerInventory.ItemGUIDs)
+		{
+			Debug.Log(test);
+		}
 		PlayerInventory = loadedData.PlayerInventory;
 		LoadUIInventorySlots();
 	}
