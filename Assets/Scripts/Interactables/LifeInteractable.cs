@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class LifeInteractable : MonoBehaviour, IInteractable
 	public int lifesToAdd;
 
 	public GameObject interactionSprite;
+
+	public static event Action<LifeInteractable> Interacted;
 
 	public void DisableInteraction()
 	{
@@ -22,5 +25,6 @@ public class LifeInteractable : MonoBehaviour, IInteractable
 	public void Interact()
 	{
 		GameEvents.PlayerInteractionCompleted?.Invoke(this);
+		Interacted?.Invoke(this);
 	}
 }

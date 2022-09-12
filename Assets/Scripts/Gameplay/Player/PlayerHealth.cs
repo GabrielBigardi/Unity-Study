@@ -10,14 +10,14 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEvents.PlayerInteractionCompleted += HandlePlayerInteraction;
-        GameEvents.PlayerCollectedItem += HandlePlayerCollect;
+        LifeInteractable.Interacted += HandlePlayerInteraction;
+        LifeCollectable.Collected += HandlePlayerCollect;
     }
 
     private void OnDisable()
     {
-        GameEvents.PlayerInteractionCompleted -= HandlePlayerInteraction;
-        GameEvents.PlayerCollectedItem -= HandlePlayerCollect;
+		LifeInteractable.Interacted -= HandlePlayerInteraction;
+		LifeCollectable.Collected -= HandlePlayerCollect;
     }
 
     public void AddLifes(int amount)
@@ -49,15 +49,13 @@ public class PlayerHealth : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void HandlePlayerInteraction(IInteractable interactable)
+    public void HandlePlayerInteraction(LifeInteractable lifeInteractable)
     {
-        if (interactable is LifeInteractable lifeInteractable)
-            AddLifes(lifeInteractable.lifesToAdd);
+        AddLifes(lifeInteractable.lifesToAdd);
     }
 
-    public void HandlePlayerCollect(ICollectable collectable)
+    public void HandlePlayerCollect()
     {
-        if (collectable is LifeCollectable lifeCollectable)
-            AddLifes(1);
+        AddLifes(1);
     }
 }

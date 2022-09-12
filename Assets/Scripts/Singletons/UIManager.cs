@@ -15,13 +15,13 @@ public class UIManager : MonoBehaviour
 	private void OnEnable()
     {
 		GameEvents.PlayerLifeChanged += RefreshLifeText;
-		GameEvents.PlayerInteractionCompleted += HandlePlayerInteractions;
+		HouseInteractable.Interacted += HandlePlayerInteractions;
 	}
 
     private void OnDisable()
     {
 		GameEvents.PlayerLifeChanged -= RefreshLifeText;
-		GameEvents.PlayerInteractionCompleted -= HandlePlayerInteractions;
+		HouseInteractable.Interacted -= HandlePlayerInteractions;
 	}
 
     private void Start()
@@ -37,10 +37,9 @@ public class UIManager : MonoBehaviour
 		_lifeText.SetTextOutline(newLifes.ToString());
 	}
 
-	private void HandlePlayerInteractions(IInteractable interactable)
+	private void HandlePlayerInteractions()
 	{
-		if (interactable is HouseInteractable houseInteractable)
-			EnterHouse();
+		EnterHouse();
 	}
 
 	public void EnterHouse()
