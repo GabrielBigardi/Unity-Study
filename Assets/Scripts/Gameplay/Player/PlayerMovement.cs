@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,16 +16,19 @@ public class PlayerMovement : MonoBehaviour
 
 	public bool CanWalkTo(Vector2 point) => !Physics2D.OverlapCircle(MovePos, 0.1f, WhatIsNotWalkable);
 
+	public static event Action<Vector2> PlayerMoveStartEvent;
+	public static event Action<Vector2> PlayerMoveEndEvent;
+
 	private void OnEnable()
 	{
-		GameEvents.PlayerFishingStarted += OnPlayerFishingStarted;
-		GameEvents.PlayerFishingEnded += OnPlayerFishingEnded;
+		PoolInteractable.PlayerFishingStarted += OnPlayerFishingStarted;
+		PlayerFishingHandler.PlayerFishingEnded += OnPlayerFishingEnded;
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.PlayerFishingStarted -= OnPlayerFishingStarted;
-		GameEvents.PlayerFishingEnded -= OnPlayerFishingEnded;
+		PoolInteractable.PlayerFishingStarted -= OnPlayerFishingStarted;
+		PlayerFishingHandler.PlayerFishingEnded -= OnPlayerFishingEnded;
 	}
 
 	private void Start()
@@ -60,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		IsMoving = true;
 
-		GameEvents.PlayerMoveStartEvent?.Invoke(transformToMove.position);
+		PlayerMoveStartEvent?.Invoke(transformToMove.position);
 
 		Sequence s = DOTween.Sequence();
 		s.Append(transformToMove.DOMove(whereToMove, duration).SetEase(Ease.Linear));
@@ -71,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		IsMoving = false;
 
-		GameEvents.PlayerMoveEndEvent?.Invoke(whereToMove);
+		PlayerMoveEndEvent?.Invoke(whereToMove);
 	}
 
 	private void OnPlayerFishingStarted(List<FishItem> possibleFishes)

@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class HouseInteractable : MonoBehaviour, IInteractable
 {
-	public bool CanBeInteracted = true;
+	private bool _canBeInteracted = true;
+	public bool CanBeInteracted => _canBeInteracted;
+
 	public GameObject interactionSprite;
 
 	public static event Action Interacted;
@@ -19,7 +21,6 @@ public class HouseInteractable : MonoBehaviour, IInteractable
 	{
 		if (!CanBeInteracted) return;
 
-		GameEvents.PlayerCloseToInteractable?.Invoke(this);
 		interactionSprite.SetActive(true);
 	}
 
@@ -28,8 +29,7 @@ public class HouseInteractable : MonoBehaviour, IInteractable
 		if (!CanBeInteracted) return;
 
 		DisableInteraction();
-		GameEvents.PlayerInteractionCompleted?.Invoke(this);
 		Interacted?.Invoke();
-		CanBeInteracted = false;
+		_canBeInteracted = false;
 	}
 }

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class LifeInteractable : MonoBehaviour, IInteractable
 {
+	private bool _canBeInteracted = true;
+	public bool CanBeInteracted => _canBeInteracted;
+
 	public int lifesToAdd;
 
 	public GameObject interactionSprite;
@@ -18,13 +21,11 @@ public class LifeInteractable : MonoBehaviour, IInteractable
 
 	public void EnableInteraction()
 	{
-		GameEvents.PlayerCloseToInteractable?.Invoke(this);
 		interactionSprite.SetActive(true);
 	}
 
 	public void Interact()
 	{
-		GameEvents.PlayerInteractionCompleted?.Invoke(this);
 		Interacted?.Invoke(this);
 	}
 }

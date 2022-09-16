@@ -1,28 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PoolInteractable : MonoBehaviour, IInteractable
 {
+	private bool _canBeInteracted = true;
+	public bool CanBeInteracted => _canBeInteracted;
+
 	[NonReorderable] public List<FishItem> FishesInPool;
 
-	public bool CanBeInteracted = true;
+	public static event Action<List<FishItem>> PlayerFishingStarted;
 
 	private void OnEnable()
 	{
-		GameEvents.PlayerFishingEnded += OnPlayerFishingEnded;
+		PlayerFishingHandler.PlayerFishingEnded += OnPlayerFishingEnded;
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.PlayerFishingEnded -= OnPlayerFishingEnded;
+		PlayerFishingHandler.PlayerFishingEnded -= OnPlayerFishingEnded;
 	}
 
 	public void EnableInteraction()
 	{
 		if (!CanBeInteracted) return;
 
-		GameEvents.PlayerCloseToInteractable?.Invoke(this);
 		GetComponent<SpriteRenderer>().material.SetFloat("_OutlineThickness", 1f);
 	}
 
@@ -36,13 +39,13 @@ public class PoolInteractable : MonoBehaviour, IInteractable
 	{
 		if (!CanBeInteracted) return;
 
-		GameEvents.PlayerFishingStarted?.Invoke(FishesInPool);
+		PlayerFishingStarted?.Invoke(FishesInPool);
 		DisableInteraction();
-		CanBeInteracted = false;
+		_canBeInteracted = false;
 	}
 
 	void OnPlayerFishingEnded()
 	{
-		CanBeInteracted = true;
+		_canBeInteracted = true;
 	}
 }

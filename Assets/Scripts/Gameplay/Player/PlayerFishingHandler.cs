@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+using Random = UnityEngine.Random;
 
 public class PlayerFishingHandler : MonoBehaviour
 {
@@ -22,16 +24,19 @@ public class PlayerFishingHandler : MonoBehaviour
 	public SpriteRenderer FishIcon;
 	public TMP_Text FishLength;
 
+	public static event Action PlayerFishingEnded;
+	public static event Action<FishItem> PlayerCatchedFish;
+
 	private void OnEnable()
 	{
-		GameEvents.PlayerFishingStarted += OnPlayerFishingStarted;
-		GameEvents.PlayerFishingEnded += OnPlayerFishingEnded;
+		PoolInteractable.PlayerFishingStarted += OnPlayerFishingStarted;
+		PlayerFishingEnded += OnPlayerFishingEnded;
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.PlayerFishingStarted -= OnPlayerFishingStarted;
-		GameEvents.PlayerFishingEnded -= OnPlayerFishingEnded;
+		PoolInteractable.PlayerFishingStarted -= OnPlayerFishingStarted;
+		PlayerFishingEnded -= OnPlayerFishingEnded;
 	}
 
 	private void Update()
@@ -71,11 +76,11 @@ public class PlayerFishingHandler : MonoBehaviour
 		{
 			FishingProgress = 1f;
 			CatchRandomFish();
-			GameEvents.PlayerFishingEnded?.Invoke();
+			PlayerFishingEnded?.Invoke();
 		}else if(FishingProgress <= 0f)
 		{
 			FishingProgress = 0f;
-			GameEvents.PlayerFishingEnded?.Invoke();
+			PlayerFishingEnded?.Invoke();
 		}
 
 		FishingProgressBar.size = new Vector2(FishingProgressBar.size.x, (0.0625f * 60) * FishingProgress);
@@ -95,7 +100,7 @@ public class PlayerFishingHandler : MonoBehaviour
 		FishIcon.sprite = randomFish.Sprite;
 		FishLength.SetText($"{Random.Range(randomFish.InchesMinSize, randomFish.InchesMaxSize)} in.");
 		FishPopupPanel.SetActive(true);
-		GameEvents.PlayerItemAdded?.Invoke(randomFish);
+		PlayerCatchedFish?.Invoke(randomFish);
 		yield return new WaitForSeconds(2f);
 		FishPopupPanel.SetActive(false);
 	}

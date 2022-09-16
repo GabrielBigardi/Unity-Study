@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Item : ScriptableObject
 {
-    
     public string GUID;
     public string Name;
     public string Description;

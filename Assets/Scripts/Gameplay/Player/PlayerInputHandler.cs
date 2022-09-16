@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     public Vector2 RawPlayerInput { get; private set; }
 	public Vector2 PlayerInput { get; private set; }
+
+	public static event Action<InputAction.CallbackContext> PlayerInteractionInput;
 
 	public void OnMouseMovement(InputAction.CallbackContext ctx)
 	{
@@ -73,6 +76,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnPlayerInteraction(InputAction.CallbackContext ctx)
     {
-        GameEvents.PlayerInteractionInput?.Invoke(ctx);
+        PlayerInteractionInput?.Invoke(ctx);
     }
 }

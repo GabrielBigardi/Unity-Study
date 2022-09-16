@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,22 +11,22 @@ public class PlayerInteractionHandler : MonoBehaviour
 
 	IEnumerator coroutine;
 
+	public static event Action<IInteractable> PlayerCloseToInteractable;
+
 	private void OnEnable()
 	{
-		GameEvents.PlayerMoveStartEvent += ResetInteractables;
-		GameEvents.PlayerMoveEndEvent += CheckInteractableTiles;
-		GameEvents.PlayerCloseToInteractable += AddCloseInteractable;
-		GameEvents.PlayerInteractionInput += HandleInteractions;
-		GameEvents.PlayerDeath += () => ClosestInteractables.ForEach((IInteractable interactable) => interactable.DisableInteraction());
+		PlayerMovement.PlayerMoveStartEvent += ResetInteractables;
+		PlayerMovement.PlayerMoveEndEvent += CheckInteractableTiles;
+		PlayerInputHandler.PlayerInteractionInput += HandleInteractions;
+		PlayerHealth.PlayerDeath += () => ClosestInteractables.ForEach((IInteractable interactable) => interactable.DisableInteraction());
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.PlayerMoveStartEvent -= ResetInteractables;
-		GameEvents.PlayerMoveEndEvent -= CheckInteractableTiles;
-		GameEvents.PlayerCloseToInteractable -= AddCloseInteractable;
-		GameEvents.PlayerInteractionInput -= HandleInteractions;
-		GameEvents.PlayerDeath -= () => ClosestInteractables.ForEach((IInteractable interactable) => interactable.DisableInteraction());
+		PlayerMovement.PlayerMoveStartEvent -= ResetInteractables;
+		PlayerMovement.PlayerMoveEndEvent -= CheckInteractableTiles;
+		PlayerInputHandler.PlayerInteractionInput -= HandleInteractions;
+		PlayerHealth.PlayerDeath -= () => ClosestInteractables.ForEach((IInteractable interactable) => interactable.DisableInteraction());
 	}
 
 	public void CheckInteractableTiles(Vector2 endPosition)
@@ -51,6 +52,8 @@ public class PlayerInteractionHandler : MonoBehaviour
 			if (interactable != null && interactable.TryGetComponent(out IInteractable interactableObj))
 			{
 				interactableObj.EnableInteraction();
+				AddCloseInteractable(interactableObj);
+				PlayerCloseToInteractable?.Invoke(interactableObj);
 			}
 		}
 	}

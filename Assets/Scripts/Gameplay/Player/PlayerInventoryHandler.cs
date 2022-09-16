@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GBD.SaveSystem;
+using System;
+using System.Linq;
 
 [System.Serializable]
 public class PlayerInventory
@@ -14,18 +16,18 @@ public class PlayerInventoryHandler : MonoBehaviour
 	public PlayerInventory PlayerInventory;
 	public List<InventorySlot> InventorySlots = new List<InventorySlot>();
 
+	public static event Action<PlayerInventory> PlayerInventoryUpdated;
+
 	private void OnEnable()
 	{
 		SaveSystem.GameDataLoaded += OnGameDataLoaded;
-		GameEvents.PlayerItemAdded += OnPlayerItemAdded;
-		GameEvents.PlayerItemRemoved += OnPlayerItemRemoved;
+		PlayerFishingHandler.PlayerCatchedFish += AddItem;
 	}
 
 	private void OnDisable()
 	{
 		SaveSystem.GameDataLoaded -= OnGameDataLoaded;
-		GameEvents.PlayerItemAdded -= OnPlayerItemAdded;
-		GameEvents.PlayerItemRemoved -= OnPlayerItemRemoved;
+		PlayerFishingHandler.PlayerCatchedFish -= AddItem;
 	}
 
 	public void OnGameDataLoaded(object loadedJson)
@@ -39,9 +41,10 @@ public class PlayerInventoryHandler : MonoBehaviour
 		LoadUIInventorySlots();
 	}
 
-	public void OnPlayerItemAdded(Item addedItem)
+	public void AddItem(Item itemToAdd) => TryAddItem(itemToAdd);
+
+	public bool TryAddItem(Item addedItem)
 	{
-		bool foundSlot = false;
 		foreach (var slot in InventorySlots)
 		{
 			if(slot.SlotItem == null)
@@ -49,46 +52,43 @@ public class PlayerInventoryHandler : MonoBehaviour
 				slot.SlotItem = addedItem;
 				slot.SlotAmount += 1;
 				slot.RefreshSlot();
-				foundSlot = true;
 				PlayerInventory.ItemGUIDs.Add(addedItem.GUID);
-				GameEvents.PlayerInventoryUpdated?.Invoke(PlayerInventory);
-				break;
+				PlayerInventoryUpdated?.Invoke(PlayerInventory);
+				return true;
 			}
 			else if(slot.SlotItem.Name == addedItem.Name)
 			{
 				slot.SlotAmount += 1;
 				slot.RefreshSlot();
-				foundSlot = true;
 				PlayerInventory.ItemGUIDs.Add(addedItem.GUID);
-				GameEvents.PlayerInventoryUpdated?.Invoke(PlayerInventory);
-				break;
+				PlayerInventoryUpdated?.Invoke(PlayerInventory);
+				return true;
 			}
 		}
 
-		Debug.Log(foundSlot ? $"{addedItem.Name} was added to the inventory." : $"{addedItem.Name} couldn't be added, no more slots");
+		return false;
 	}
 
-	public void OnPlayerItemRemoved(Item removedItem)
+	public void RemoveItem(Item removedItem)
 	{
+		var itemToRemove = PlayerInventory.ItemGUIDs.FirstOrDefault(x => x == removedItem.GUID);
+		if (itemToRemove != null)
+			PlayerInventory.ItemGUIDs.Remove(itemToRemove);
+
 		Debug.Log($"{removedItem.Name} was removed from the player inventory.");
 	}
 
 	private void LoadUIInventorySlots()
 	{
-		// Foreach item in inventory
 		for (int i = 0; i < PlayerInventory.ItemGUIDs.Count; i++)
 		{
-			// If GUID is empty continue to next iteration
 			if (string.IsNullOrEmpty(PlayerInventory.ItemGUIDs[i]))
 				continue;
 
-			// Find item by GUID in database
 			var itemToCheck = DatabaseManager.Instance.FindItemByGUID(PlayerInventory.ItemGUIDs[i]);
 
-			// Loop through each inventory slot
 			foreach (var inventorySlot in InventorySlots)
 			{
-				// If item in current slot is null, add this one
 				if (inventorySlot.SlotItem == null)
 				{
 					inventorySlot.SlotItem = itemToCheck;
@@ -103,26 +103,5 @@ public class PlayerInventoryHandler : MonoBehaviour
 				}
 			}
 		}
-		//// Foreach slot
-		//for (int i = 0; i < InventorySlots.Count; i++)
-		//{
-		//	// If Player has GUID X and GUID is not empty
-		//	if (PlayerInventory.ItemGUIDs.Count > i && !string.IsNullOrEmpty(PlayerInventory.ItemGUIDs[i]))
-		//	{
-		//		Debug.Log(PlayerInventory.ItemGUIDs[i]);
-		//		var itemToCheck = DatabaseManager.Instance.FindItemByGUID(PlayerInventory.ItemGUIDs[i]);
-		//		if (InventorySlots[i].SlotItem != null && InventorySlots[i].SlotItem.Name == itemToCheck.Name)
-		//		{
-		//			InventorySlots[i].SlotAmount++;
-		//			InventorySlots[i].RefreshSlot();
-		//			
-		//		}
-		//		else if (InventorySlots[i].SlotItem == null)
-		//		{
-		//			InventorySlots[i].SlotItem = itemToCheck;
-		//			InventorySlots[i].RefreshSlot();
-		//		}
-		//	}
-		//}
 	}
 }

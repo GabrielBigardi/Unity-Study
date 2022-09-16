@@ -14,13 +14,13 @@ public class UIManager : MonoBehaviour
 
 	private void OnEnable()
     {
-		GameEvents.PlayerLifeChanged += RefreshLifeText;
+		PlayerHealth.PlayerLifeChanged += RefreshLifeText;
 		HouseInteractable.Interacted += HandlePlayerInteractions;
 	}
 
     private void OnDisable()
     {
-		GameEvents.PlayerLifeChanged -= RefreshLifeText;
+		PlayerHealth.PlayerLifeChanged -= RefreshLifeText;
 		HouseInteractable.Interacted -= HandlePlayerInteractions;
 	}
 

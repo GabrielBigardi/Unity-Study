@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GBD.SaveSystem;
+using System;
 
 public class PlayerHealth : MonoBehaviour
 {
     [field: SerializeField]
     public int CurrentLifes { get; private set; }
 
-    private void OnEnable()
+	public static event Action<int> PlayerLifeChanged;
+	public static event Action PlayerDeath;
+
+	private void OnEnable()
     {
         LifeInteractable.Interacted += HandlePlayerInteraction;
         LifeCollectable.Collected += HandlePlayerCollect;
@@ -40,12 +44,12 @@ public class PlayerHealth : MonoBehaviour
             Death();
         }
 
-        GameEvents.PlayerLifeChanged?.Invoke(newLifesAmount);
+        PlayerLifeChanged?.Invoke(newLifesAmount);
     }
 
     public void Death()
     {
-        GameEvents.PlayerDeath?.Invoke();
+        PlayerDeath?.Invoke();
         Destroy(gameObject);
     }
 

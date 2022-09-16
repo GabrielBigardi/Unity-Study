@@ -7,9 +7,8 @@ public class LifeCollectable : MonoBehaviour, ICollectable
 {
 	public static event Action Collected;
 
-    public void Collect()
+	public void Collect()
 	{
-        GameEvents.PlayerCollectedItem?.Invoke(this);
 		Collected?.Invoke();
 	}
 }
