@@ -18,10 +18,5 @@ public class Flip : MonoBehaviour
     void Update()
     {
         playerSpriteRenderer.flipX = playerVerletLauncher.velocityX > 0 ? false : true;
-        //if (InputHandler.Instance.PlayerInput.x > 0)
-        //    playerSpriteRenderer.flipX = false;
-        //
-        //if (InputHandler.Instance.PlayerInput.x < 0)
-        //    playerSpriteRenderer.flipX = true;
     }
 }

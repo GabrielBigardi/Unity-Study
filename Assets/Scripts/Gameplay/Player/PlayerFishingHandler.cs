@@ -24,19 +24,18 @@ public class PlayerFishingHandler : MonoBehaviour
 	public SpriteRenderer FishIcon;
 	public TMP_Text FishLength;
 
+	public static event Action<List<FishItem>> PlayerFishingStarted;
 	public static event Action PlayerFishingEnded;
 	public static event Action<FishItem> PlayerCatchedFish;
 
 	private void OnEnable()
 	{
-		PoolInteractable.PlayerFishingStarted += OnPlayerFishingStarted;
-		PlayerFishingEnded += OnPlayerFishingEnded;
+		PoolInteractable.Interacted += OnPoolInteractableInteracted;
 	}
 
 	private void OnDisable()
 	{
-		PoolInteractable.PlayerFishingStarted -= OnPlayerFishingStarted;
-		PlayerFishingEnded -= OnPlayerFishingEnded;
+		PoolInteractable.Interacted -= OnPoolInteractableInteracted;
 	}
 
 	private void Update()
@@ -76,11 +75,12 @@ public class PlayerFishingHandler : MonoBehaviour
 		{
 			FishingProgress = 1f;
 			CatchRandomFish();
-			PlayerFishingEnded?.Invoke();
-		}else if(FishingProgress <= 0f)
+			EndFishing();
+		}
+		else if(FishingProgress <= 0f)
 		{
 			FishingProgress = 0f;
-			PlayerFishingEnded?.Invoke();
+			EndFishing();
 		}
 
 		FishingProgressBar.size = new Vector2(FishingProgressBar.size.x, (0.0625f * 60) * FishingProgress);
@@ -105,7 +105,7 @@ public class PlayerFishingHandler : MonoBehaviour
 		FishPopupPanel.SetActive(false);
 	}
 
-	public void OnPlayerFishingStarted(List<FishItem> possibleFishes)
+	public void OnPoolInteractableInteracted(List<FishItem> possibleFishes)
 	{
 		FishPopupPanel.SetActive(false);
 		PossibleFishes = possibleFishes;
@@ -117,12 +117,16 @@ public class PlayerFishingHandler : MonoBehaviour
 		FishingProgressBar.size = new Vector2(FishingProgressBar.size.x, FishingProgress);
 		MovingFishSprite.transform.localPosition = new Vector3(MovingFishSprite.transform.localPosition.x, 0f, 0f);
 		IsFishing = true;
+
+		PlayerFishingStarted?.Invoke(possibleFishes);
 	}
 
-	public void OnPlayerFishingEnded()
+	public void EndFishing()
 	{
 		FishingPanel.SetActive(false);
 		IsFishing = false;
 		GetComponent<PlayerInteractionHandler>().CheckInteractableTiles(transform.position);
+
+		PlayerFishingEnded?.Invoke();
 	}
 }

@@ -17,8 +17,7 @@ public class ColorGradientOverTime : MonoBehaviour
     [SerializeField] private TimeListenType _timeListenType;
     [SerializeField] private Gradient _dayGradient;
     [SerializeField] private Light2D _sunLight2D;
-
-    private Tween _currentTween;
+    [SerializeField] private float _lerpSpeed;
 
 	private void OnEnable()
     {
@@ -53,7 +52,7 @@ public class ColorGradientOverTime : MonoBehaviour
 		}
 
         if (lerp)
-            _sunLight2D.DOColor(_dayGradient.Evaluate(mappedThing), 2f);
+            _sunLight2D.DOColor(_dayGradient.Evaluate(mappedThing), _lerpSpeed);
         else
             _sunLight2D.color = _dayGradient.Evaluate(mappedThing);
 	}

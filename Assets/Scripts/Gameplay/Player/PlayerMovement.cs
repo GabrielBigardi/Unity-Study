@@ -21,13 +21,13 @@ public class PlayerMovement : MonoBehaviour
 
 	private void OnEnable()
 	{
-		PoolInteractable.PlayerFishingStarted += OnPlayerFishingStarted;
+		PlayerFishingHandler.PlayerFishingStarted += OnPlayerFishingStarted;
 		PlayerFishingHandler.PlayerFishingEnded += OnPlayerFishingEnded;
 	}
 
 	private void OnDisable()
 	{
-		PoolInteractable.PlayerFishingStarted -= OnPlayerFishingStarted;
+		PlayerFishingHandler.PlayerFishingStarted -= OnPlayerFishingStarted;
 		PlayerFishingHandler.PlayerFishingEnded -= OnPlayerFishingEnded;
 	}
 

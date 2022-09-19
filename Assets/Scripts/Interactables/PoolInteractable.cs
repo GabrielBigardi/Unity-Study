@@ -9,8 +9,7 @@ public class PoolInteractable : MonoBehaviour, IInteractable
 	public bool CanBeInteracted => _canBeInteracted;
 
 	[NonReorderable] public List<FishItem> FishesInPool;
-
-	public static event Action<List<FishItem>> PlayerFishingStarted;
+	public static event Action<List<FishItem>> Interacted;
 
 	private void OnEnable()
 	{
@@ -31,7 +30,6 @@ public class PoolInteractable : MonoBehaviour, IInteractable
 
 	public void DisableInteraction()
 	{
-		//GameEvents.PlayerFishingEnded?.Invoke();
 		GetComponent<SpriteRenderer>().material.SetFloat("_OutlineThickness", 0f);
 	}
 
@@ -39,7 +37,7 @@ public class PoolInteractable : MonoBehaviour, IInteractable
 	{
 		if (!CanBeInteracted) return;
 
-		PlayerFishingStarted?.Invoke(FishesInPool);
+		Interacted?.Invoke(FishesInPool);
 		DisableInteraction();
 		_canBeInteracted = false;
 	}

@@ -23,9 +23,4 @@ public class PlayerSaveHandler : MonoBehaviour
 	{
 		SaveSystem.SaveGame("TestSave", new SaveData(GetComponent<PlayerInventoryHandler>().PlayerInventory), "28472B4B6250655368566D5971337436");
 	}
-
-	//private void OnLoadGame(string loadedJson)
-	//{
-	//    var loadedData = JsonUtility.FromJson<SaveData>(loadedJson);
-	//}
 }
