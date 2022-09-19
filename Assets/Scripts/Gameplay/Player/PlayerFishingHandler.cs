@@ -83,8 +83,8 @@ public class PlayerFishingHandler : MonoBehaviour
 			EndFishing();
 		}
 
-		FishingProgressBar.size = new Vector2(FishingProgressBar.size.x, (0.0625f * 60) * FishingProgress);
-		FishingProgressBar.transform.localPosition = new Vector3(FishingProgressBar.transform.localPosition.x, (FishingProgressBar.size.y / 2) - (0.0625f * 30));
+		//FishingProgressBar.transform.localScale = new Vector3(1f, FishingProgress, 1f);
+		FishingProgressBar.transform.localPosition = new Vector3(FishingProgressBar.transform.localPosition.x, Helpers.Map(FishingProgress, 0f, 1f, -(0.0625f * 58), 0f));
 	}
 
 	private void CatchRandomFish()
