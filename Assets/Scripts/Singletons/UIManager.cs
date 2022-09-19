@@ -17,14 +17,14 @@ public class UIManager : MonoBehaviour
     {
 		PlayerHealth.PlayerLifeChanged += RefreshLifeText;
 		HouseInteractable.Interacted += HandlePlayerInteractions;
-		TimeManager.GameTimeChanged += OnGameTimeChanged;
+		TimeManager.GameTimeSecondChanged += OnGameTimeChanged;
 	}
 
     private void OnDisable()
     {
 		PlayerHealth.PlayerLifeChanged -= RefreshLifeText;
 		HouseInteractable.Interacted -= HandlePlayerInteractions;
-		TimeManager.GameTimeChanged -= OnGameTimeChanged;
+		TimeManager.GameTimeSecondChanged -= OnGameTimeChanged;
 	}
 
 	private void OnGameTimeChanged(int hour, int minutes, int seconds) => _timeText.SetText($"{hour.ToString("00")} {minutes.ToString("00")} {seconds.ToString("00")}");

@@ -11,13 +11,19 @@ public class TimeManager : MonoBehaviour
 
     private float _gameTimer = 0f;
 
-    public static event Action<int> GameTimeSecondChanged;
-    public static event Action<int> GameTimeMinuteChanged;
-    public static event Action<int> GameTimeHourChanged;
+    public static event Action<int,int,int> GameTimeSecondChanged;
+    public static event Action<int,int,int> GameTimeMinuteChanged;
+    public static event Action<int,int,int> GameTimeHourChanged;
 
     public static event Action<int,int,int> GameTimeChanged;
+    public static event Action<int,int,int> GameTimeSet;
 
-	private void Update()
+    private void Start()
+    {
+        SetGameTime(0, 0, 0);
+    }
+
+    private void Update()
     {
         var previousSecond = CurrentSecond;
         var previousMinute = CurrentMinute;
@@ -27,24 +33,25 @@ public class TimeManager : MonoBehaviour
 
         if (previousSecond != CurrentSecond)
         {
-			GameTimeSecondChanged?.Invoke(CurrentSecond);
-            GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
+			GameTimeSecondChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
+			GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
 		}
 		if (previousMinute != CurrentMinute)
         {
-			GameTimeMinuteChanged?.Invoke(CurrentMinute);
-            GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
+			GameTimeMinuteChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
+			GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
 		}
 		if (previousHour != CurrentHour)
         {
-			GameTimeHourChanged?.Invoke(CurrentHour);
-            GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
+			GameTimeHourChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
+			GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
 		}
 	}
 
     public void SetGameTime(int hour, int minute, int second)
     {
         _gameTimer = (hour * 3600) + (minute * 60) + (second);
-        GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
+		GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
+		GameTimeSet?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
 	}
 }

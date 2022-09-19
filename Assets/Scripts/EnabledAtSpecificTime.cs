@@ -11,15 +11,23 @@ public class EnabledAtSpecificTime : MonoBehaviour
 
 	private void OnEnable()
     {
-        TimeManager.GameTimeChanged += OnGameTimeChanged;
-    }
+        TimeManager.GameTimeHourChanged += OnHourChanged;
+        TimeManager.GameTimeChanged += OnTimeChanged;
+        TimeManager.GameTimeSet += OnTimeSet;
+	}
 
     private void OnDisable()
     {
-        TimeManager.GameTimeChanged -= OnGameTimeChanged;
-    }
+        TimeManager.GameTimeHourChanged += OnHourChanged;
+        TimeManager.GameTimeChanged -= OnTimeChanged;
+		TimeManager.GameTimeSet -= OnTimeSet;
+	}
 
-    private void OnGameTimeChanged(int hour, int minutes, int seconds)
+	private void OnHourChanged(int hour, int minutes, int seconds) => CheckTime(hour, 0, 0); 
+	private void OnTimeChanged(int hour, int minutes, int seconds) => CheckTime(hour, 0, 0); 
+	private void OnTimeSet(int hour, int minutes, int seconds) => CheckTime(hour, 0, 0); 
+
+    private void CheckTime(int hour, int minutes, int seconds)
     {
         var blabla = _componentToEnable.GetType();
 

@@ -18,41 +18,22 @@ public class ColorGradientOverTime : MonoBehaviour
     [SerializeField] private Gradient _dayGradient;
     [SerializeField] private Light2D _sunLight2D;
 
+    private Tween _currentTween;
+
 	private void OnEnable()
     {
-        switch (_timeListenType)
-        {
-            case TimeListenType.Hour:
-                TimeManager.GameTimeHourChanged += HandleTimeChange;
-                break;
-            case TimeListenType.Minute:
-                TimeManager.GameTimeMinuteChanged += HandleTimeChange;
-                break;
-			case TimeListenType.Seconds:
-                TimeManager.GameTimeSecondChanged += HandleTimeChange;
-                break;
-        }
+        TimeManager.GameTimeHourChanged += OnHourChanged;
+		TimeManager.GameTimeSet += OnTimeSet;
     }
 
     private void OnDisable()
     {
-		switch (_timeListenType)
-		{
-			case TimeListenType.Hour:
-				TimeManager.GameTimeHourChanged -= HandleTimeChange;
-				break;
-			case TimeListenType.Minute:
-				TimeManager.GameTimeMinuteChanged -= HandleTimeChange;
-				break;
-			case TimeListenType.Seconds:
-				TimeManager.GameTimeSecondChanged -= HandleTimeChange;
-				break;
-		}
+        TimeManager.GameTimeHourChanged -= OnHourChanged;
+		TimeManager.GameTimeSet -= OnTimeSet;
 	}
 
-    private void Start() => RefreshLight(0, false);
-
-    private void HandleTimeChange(int whatChanged) => RefreshLight(whatChanged, true);
+	private void OnHourChanged(int hour, int minutes, int seconds) => RefreshLight(hour, true);
+	private void OnTimeSet(int hour, int minutes, int seconds) => RefreshLight(hour, false);
 
     private void RefreshLight(int whatToMap, bool lerp)
     {
