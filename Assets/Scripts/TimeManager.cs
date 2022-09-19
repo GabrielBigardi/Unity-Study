@@ -18,6 +18,8 @@ public class TimeManager : MonoBehaviour
     public static event Action<int,int,int> GameTimeChanged;
     public static event Action<int,int,int> GameTimeSet;
 
+    [SerializeField] private float _timeMultiplier;
+
     private void Start()
     {
         SetGameTime(12, 0, 0);
@@ -29,7 +31,7 @@ public class TimeManager : MonoBehaviour
         var previousMinute = CurrentMinute;
         var previousHour = CurrentHour;
 
-        _gameTimer += Time.deltaTime * 60f;
+        _gameTimer += Time.deltaTime * _timeMultiplier;
 
         if (previousSecond != CurrentSecond)
         {

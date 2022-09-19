@@ -15,9 +15,9 @@ public enum TimeListenType
 public class ColorGradientOverTime : MonoBehaviour
 {
     [SerializeField] private TimeListenType _timeListenType;
-    [SerializeField] private Gradient _dayGradient;
+    [SerializeField] private ScriptableGradient _scriptableGradient;
     [SerializeField] private Light2D _sunLight2D;
-    [SerializeField] private float _lerpSpeed;
+    [SerializeField] private float _lerpDuration;
 
 	private void OnEnable()
     {
@@ -52,8 +52,8 @@ public class ColorGradientOverTime : MonoBehaviour
 		}
 
         if (lerp)
-            _sunLight2D.DOColor(_dayGradient.Evaluate(mappedThing), _lerpSpeed);
+            _sunLight2D.DOColor(_scriptableGradient.Gradient.Evaluate(mappedThing), _lerpDuration);
         else
-            _sunLight2D.color = _dayGradient.Evaluate(mappedThing);
+            _sunLight2D.color = _scriptableGradient.Gradient.Evaluate(mappedThing);
 	}
 }
