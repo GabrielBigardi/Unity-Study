@@ -29,7 +29,7 @@ public class TimeManager : MonoBehaviour
         var previousMinute = CurrentMinute;
         var previousHour = CurrentHour;
 
-        _gameTimer += Time.deltaTime * 2000f;
+        _gameTimer += Time.deltaTime * 16000f;
 
         if (previousSecond != CurrentSecond)
         {
@@ -39,12 +39,12 @@ public class TimeManager : MonoBehaviour
 		if (previousMinute != CurrentMinute)
         {
 			GameTimeMinuteChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
-			GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
+			//GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
 		}
 		if (previousHour != CurrentHour)
         {
 			GameTimeHourChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
-			GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
+			//GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
 		}
 	}
 

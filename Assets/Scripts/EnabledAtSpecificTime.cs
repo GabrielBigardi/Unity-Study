@@ -29,12 +29,12 @@ public class EnabledAtSpecificTime : MonoBehaviour
 
     private void CheckTime(int hour, int minutes, int seconds)
     {
-        var blabla = _componentToEnable.GetType();
-
-        if (hour == _timeToEnable.x)
-            _componentToEnable.SetActive(true);
-
-		if (hour == _timeToDisable.x)
-			_componentToEnable.SetActive(false);
+        //var blabla = _componentToEnable.GetType();
+        //
+        //if (hour == _timeToEnable.x)
+        //    _componentToEnable.SetActive(true);
+        //
+		//if (hour == _timeToDisable.x)
+		//	_componentToEnable.SetActive(false);
 	}
 }

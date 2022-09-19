@@ -12,12 +12,14 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private GameObject _lifeText;
 	[SerializeField] private Image _fadeImage;
 	[SerializeField] private TMP_Text _timeText;
+	[SerializeField] private TMP_Text _dateText;
 
 	private void OnEnable()
     {
 		PlayerHealth.PlayerLifeChanged += RefreshLifeText;
 		HouseInteractable.Interacted += HandlePlayerInteractions;
 		TimeManager.GameTimeSecondChanged += OnGameTimeChanged;
+		DateManager.GameDateChanged += OnGameDateChanged;
 	}
 
     private void OnDisable()
@@ -25,9 +27,11 @@ public class UIManager : MonoBehaviour
 		PlayerHealth.PlayerLifeChanged -= RefreshLifeText;
 		HouseInteractable.Interacted -= HandlePlayerInteractions;
 		TimeManager.GameTimeSecondChanged -= OnGameTimeChanged;
+		DateManager.GameDateChanged -= OnGameDateChanged;
 	}
 
-	private void OnGameTimeChanged(int hour, int minutes, int seconds) => _timeText.SetText($"{hour.ToString("00")} {minutes.ToString("00")} {seconds.ToString("00")}");
+	private void OnGameDateChanged(int day, int month, int year) => _dateText.SetText($"{day.ToString("00")}/{month.ToString("00")}/{year.ToString("00")}");
+	private void OnGameTimeChanged(int hour, int minutes, int seconds) => _timeText.SetText($"{hour.ToString("00")}:{minutes.ToString("00")}:{seconds.ToString("00")}");
 
 	private void Start()
     {
