@@ -11,20 +11,25 @@ public class UIManager : MonoBehaviour
 {
 	[SerializeField] private GameObject _lifeText;
 	[SerializeField] private Image _fadeImage;
+	[SerializeField] private TMP_Text _timeText;
 
 	private void OnEnable()
     {
 		PlayerHealth.PlayerLifeChanged += RefreshLifeText;
 		HouseInteractable.Interacted += HandlePlayerInteractions;
+		TimeManager.GameTimeChanged += OnGameTimeChanged;
 	}
 
     private void OnDisable()
     {
 		PlayerHealth.PlayerLifeChanged -= RefreshLifeText;
 		HouseInteractable.Interacted -= HandlePlayerInteractions;
+		TimeManager.GameTimeChanged -= OnGameTimeChanged;
 	}
 
-    private void Start()
+	private void OnGameTimeChanged(int hour, int minutes, int seconds) => _timeText.SetText($"{hour.ToString("00")} {minutes.ToString("00")} {seconds.ToString("00")}");
+
+	private void Start()
     {
 		_fadeImage.color = Color.black;
 		_fadeImage.DOColor(Color.clear, 1f);
