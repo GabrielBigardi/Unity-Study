@@ -42,5 +42,9 @@ public class TimeManager : MonoBehaviour
 		}
 	}
 
-    public void SetGameTime(int hour, int minute, int second) => _gameTimer = (hour * 3600) + (minute * 60) + (second);
+    public void SetGameTime(int hour, int minute, int second)
+    {
+        _gameTimer = (hour * 3600) + (minute * 60) + (second);
+        GameTimeChanged?.Invoke(CurrentHour, CurrentMinute, CurrentSecond);
+	}
 }
