@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "PlayerRemoveInventory",
+                    "type": "Button",
+                    "id": "8927ce38-dfe1-4964-a719-a3ee84bde38b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "MouseClick",
                     "type": "Button",
                     "id": "244421c9-6c17-4107-be2d-46ff69c826a7",
@@ -194,6 +203,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5bbb9ad-5114-40f7-96ad-2b0e4c131179",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerRemoveInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

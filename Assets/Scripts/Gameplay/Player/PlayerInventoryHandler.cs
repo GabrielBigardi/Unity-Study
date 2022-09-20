@@ -4,6 +4,7 @@ using UnityEngine;
 using GBD.SaveSystem;
 using System;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 [System.Serializable]
 public class PlayerInventory
@@ -22,21 +23,27 @@ public class PlayerInventoryHandler : MonoBehaviour
 	{
 		SaveSystem.GameDataLoaded += OnGameDataLoaded;
 		PlayerFishingHandler.PlayerCatchedFish += AddItem;
+		PlayerInputHandler.PlayerRemoveInventoryInput += OnPlayerRemoveInventoryInput;
 	}
 
 	private void OnDisable()
 	{
 		SaveSystem.GameDataLoaded -= OnGameDataLoaded;
 		PlayerFishingHandler.PlayerCatchedFish -= AddItem;
+		PlayerInputHandler.PlayerRemoveInventoryInput -= OnPlayerRemoveInventoryInput;
+	}
+
+	private void OnPlayerRemoveInventoryInput(InputAction.CallbackContext ctx)
+	{
+		if (ctx.started)
+		{
+			ClearInventory();
+		}
 	}
 
 	public void OnGameDataLoaded(object loadedJson)
 	{
 		var loadedData = loadedJson as SaveData;
-		foreach (var test in loadedData.PlayerInventory.ItemGUIDs)
-		{
-			Debug.Log(test);
-		}
 		PlayerInventory = loadedData.PlayerInventory;
 		LoadUIInventorySlots();
 	}
@@ -69,6 +76,8 @@ public class PlayerInventoryHandler : MonoBehaviour
 		return false;
 	}
 
+	public void RemoveItem(string itemGUID) => RemoveItem(DatabaseManager.Instance.FindItemByGUID(itemGUID));
+
 	public void RemoveItem(Item removedItem)
 	{
 		var itemToRemove = PlayerInventory.ItemGUIDs.FirstOrDefault(x => x == removedItem.GUID);
@@ -80,12 +89,13 @@ public class PlayerInventoryHandler : MonoBehaviour
 
 	private void LoadUIInventorySlots()
 	{
-		for (int i = 0; i < PlayerInventory.ItemGUIDs.Count; i++)
+		// Populate inventory
+		foreach (string itemID in PlayerInventory.ItemGUIDs)
 		{
-			if (string.IsNullOrEmpty(PlayerInventory.ItemGUIDs[i]))
+			if (string.IsNullOrEmpty(itemID))
 				continue;
 
-			var itemToCheck = DatabaseManager.Instance.FindItemByGUID(PlayerInventory.ItemGUIDs[i]);
+			var itemToCheck = DatabaseManager.Instance.FindItemByGUID(itemID);
 
 			foreach (var inventorySlot in InventorySlots)
 			{
@@ -102,6 +112,18 @@ public class PlayerInventoryHandler : MonoBehaviour
 					break;
 				}
 			}
+		}
+	}
+
+	private void ClearInventory()
+	{
+		PlayerInventory.ItemGUIDs.Clear();
+
+		foreach (var inventorySlot in InventorySlots)
+		{
+			inventorySlot.SlotItem = null;
+			inventorySlot.SlotAmount = 0;
+			inventorySlot.RefreshSlot();
 		}
 	}
 }

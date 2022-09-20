@@ -4,12 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum InputAxis
-{
-	X,
-	Y
-}
-
 public class PlayerInputHandler : MonoBehaviour
 {
     public Vector2 MousePositionScreen { get; private set; }
@@ -20,6 +14,7 @@ public class PlayerInputHandler : MonoBehaviour
 	public Vector2 PlayerInput { get; private set; }
 
 	public static event Action<InputAction.CallbackContext> PlayerInteractionInput;
+	public static event Action<InputAction.CallbackContext> PlayerRemoveInventoryInput;
 
 	public void OnMouseMovement(InputAction.CallbackContext ctx)
 	{
@@ -78,4 +73,9 @@ public class PlayerInputHandler : MonoBehaviour
     {
         PlayerInteractionInput?.Invoke(ctx);
     }
+
+	public void OnPlayerRemoveInventory(InputAction.CallbackContext ctx)
+	{
+		PlayerRemoveInventoryInput?.Invoke(ctx);
+	}
 }
