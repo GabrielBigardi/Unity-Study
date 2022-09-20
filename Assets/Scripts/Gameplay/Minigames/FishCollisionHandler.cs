@@ -1,14 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FishCollisionHandler : MonoBehaviour
 {
+	public static event Action<bool> FishingBarCollisionWithFish;
+
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("MinigameFish"))
 		{
-			GetComponentInParent<PlayerFishingHandler>().IsBarTouchingFish = true;
+			FishingBarCollisionWithFish?.Invoke(true);
 		}
 	}
 
@@ -16,7 +19,7 @@ public class FishCollisionHandler : MonoBehaviour
 	{
 		if (other.CompareTag("MinigameFish"))
 		{
-			GetComponentInParent<PlayerFishingHandler>().IsBarTouchingFish = false;
+			FishingBarCollisionWithFish?.Invoke(false);
 		}
 	}
 }

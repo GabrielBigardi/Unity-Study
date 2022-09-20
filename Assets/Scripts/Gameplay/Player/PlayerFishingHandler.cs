@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using System;
 using Random = UnityEngine.Random;
+using UnityEngine.InputSystem;
+using System.Runtime.InteropServices.ComTypes;
 
 public class PlayerFishingHandler : MonoBehaviour
 {
@@ -28,14 +30,20 @@ public class PlayerFishingHandler : MonoBehaviour
 	public static event Action PlayerFishingEnded;
 	public static event Action<FishItem> PlayerCatchedFish;
 
+	bool mouseLeftButton = false;
+
 	private void OnEnable()
 	{
 		PoolInteractable.Interacted += OnPoolInteractableInteracted;
+		FishCollisionHandler.FishingBarCollisionWithFish += OnFishingBarCollisionWithFish;
+		PlayerInputHandler.PlayerMouseInput += OnPlayerMouseInput;
 	}
 
 	private void OnDisable()
 	{
 		PoolInteractable.Interacted -= OnPoolInteractableInteracted;
+		FishCollisionHandler.FishingBarCollisionWithFish -= OnFishingBarCollisionWithFish;
+		PlayerInputHandler.PlayerMouseInput -= OnPlayerMouseInput;
 	}
 
 	private void Update()
@@ -47,9 +55,22 @@ public class PlayerFishingHandler : MonoBehaviour
 		UpdateProgressBar();
 	}
 
+	private void OnPlayerMouseInput(InputAction.CallbackContext ctx)
+	{
+		if (ctx.started)
+			mouseLeftButton = true;
+
+		if (ctx.canceled)
+			mouseLeftButton = false;
+	}
+
+	private void OnFishingBarCollisionWithFish(bool colliding)
+	{
+		IsBarTouchingFish = colliding;
+	}
+
 	private void FishingBarMovement()
 	{
-		bool mouseLeftButton = GetComponent<PlayerCore>().PlayerInputHandler.MouseLeftButton;
 		float barVelocity = 2f;
 
 		if ((FishingCatchBar.transform.localPosition.y - (FishingCatchBar.size.y / 2)) < -(0.0625f * 28) && !mouseLeftButton)
@@ -125,7 +146,6 @@ public class PlayerFishingHandler : MonoBehaviour
 	{
 		FishingPanel.SetActive(false);
 		IsFishing = false;
-		GetComponent<PlayerInteractionHandler>().CheckInteractableTiles(transform.position);
 
 		PlayerFishingEnded?.Invoke();
 	}

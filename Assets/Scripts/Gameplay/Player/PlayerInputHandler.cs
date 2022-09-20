@@ -13,6 +13,7 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 RawPlayerInput { get; private set; }
 	public Vector2 PlayerInput { get; private set; }
 
+    public static event Action<InputAction.CallbackContext> PlayerMouseInput;
 	public static event Action<InputAction.CallbackContext> PlayerInteractionInput;
 	public static event Action<InputAction.CallbackContext> PlayerRemoveInventoryInput;
 
@@ -29,6 +30,8 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (ctx.canceled)
             MouseLeftButton = false;
+
+        PlayerMouseInput?.Invoke(ctx);
 	}
 
 	public void OnPlayerInput(InputAction.CallbackContext ctx)

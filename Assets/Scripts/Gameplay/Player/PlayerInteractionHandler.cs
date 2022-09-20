@@ -18,7 +18,8 @@ public class PlayerInteractionHandler : MonoBehaviour
 		PlayerMovement.PlayerMoveStartEvent += ResetInteractables;
 		PlayerMovement.PlayerMoveEndEvent += CheckInteractableTiles;
 		PlayerInputHandler.PlayerInteractionInput += HandleInteractions;
-		PlayerHealth.PlayerDeath += () => ClosestInteractables.ForEach((IInteractable interactable) => interactable.DisableInteraction());
+		PlayerHealth.PlayerDeath += OnPlayerDeath;
+		PlayerFishingHandler.PlayerFishingEnded += OnPlayerFishingEnded;
 	}
 
 	private void OnDisable()
@@ -26,7 +27,18 @@ public class PlayerInteractionHandler : MonoBehaviour
 		PlayerMovement.PlayerMoveStartEvent -= ResetInteractables;
 		PlayerMovement.PlayerMoveEndEvent -= CheckInteractableTiles;
 		PlayerInputHandler.PlayerInteractionInput -= HandleInteractions;
-		PlayerHealth.PlayerDeath -= () => ClosestInteractables.ForEach((IInteractable interactable) => interactable.DisableInteraction());
+		PlayerHealth.PlayerDeath -= OnPlayerDeath;
+		PlayerFishingHandler.PlayerFishingEnded -= OnPlayerFishingEnded;
+	}
+
+	private void OnPlayerDeath()
+	{
+		ClosestInteractables.ForEach((IInteractable interactable) => interactable.DisableInteraction());
+	}
+
+	private void OnPlayerFishingEnded()
+	{
+		CheckInteractableTiles(transform.position);
 	}
 
 	public void CheckInteractableTiles(Vector2 endPosition)
