@@ -31,6 +31,11 @@ public class PlayerInteractionHandler : MonoBehaviour
 		PlayerFishingHandler.PlayerFishingEnded -= OnPlayerFishingEnded;
 	}
 
+	private void Start()
+	{
+		CheckInteractableTiles(transform.position);
+	}
+
 	private void OnPlayerDeath()
 	{
 		ClosestInteractables.ForEach((IInteractable interactable) => interactable.DisableInteraction());
