@@ -208,6 +208,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ac5292f7-9a0d-4029-aacf-93396fcb2166",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d5bbb9ad-5114-40f7-96ad-2b0e4c131179",
                     "path": "<Keyboard>/f",
                     "interactions": "",
