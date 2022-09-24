@@ -17,7 +17,7 @@ public class PlayerInputHandler : MonoBehaviour
 	public static event Action<InputAction.CallbackContext> PlayerInteractionInput;
 	public static event Action<InputAction.CallbackContext> PlayerRemoveInventoryInput;
 
-	public void OnMouseMovement(InputAction.CallbackContext ctx)
+    public void OnMouseMovement(InputAction.CallbackContext ctx)
 	{
 		MousePositionScreen = ctx.ReadValue<Vector2>();
 		MousePositionWorld = Camera.main == null ? Vector3.zero : Camera.main.ScreenToWorldPoint(MousePositionScreen);

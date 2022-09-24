@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class DateManager : MonoBehaviour
 {
-	public int CurrentDay = 1;
-	public int CurrentMonth = 1;
-	public int CurrentYear = 1;
+	private int _realCurrentDay = 1;
+	private int _currentDay = 1;
+	private int _currentMonth = 1;
+	private int _currentYear = 1;
 
 	public static event Action<int> GameDateDayChanged;
 	public static event Action<int> GameDateMonthChanged;
 	public static event Action<int> GameDateYearChanged;
 
-	public static event Action<int, int, int> GameDateChanged;
+	public static event Action<int, int, int, int> GameDateChanged;
 
 	private void OnEnable()
 	{
@@ -34,30 +35,31 @@ public class DateManager : MonoBehaviour
 
 	private void IncreaseDay()
 	{
-		CurrentDay++;
-		if (CurrentDay > 30)
+		_realCurrentDay++;
+		_currentDay++;
+		if (_currentDay > 30)
 		{
-			CurrentDay = 1;
+			_currentDay = 1;
 			IncreaseMonth();
 		}
-		GameDateDayChanged?.Invoke(CurrentDay);
-		GameDateChanged?.Invoke(CurrentDay, CurrentMonth, CurrentYear);
+		GameDateDayChanged?.Invoke(_currentDay);
+		GameDateChanged?.Invoke(_realCurrentDay, _currentDay, _currentMonth, _currentYear);
 	}
 
 	private void IncreaseMonth()
 	{
-		CurrentMonth++;
-		if (CurrentMonth > 12)
+		_currentMonth++;
+		if (_currentMonth > 12)
 		{
-			CurrentMonth = 1;
+			_currentMonth = 1;
 			IncreaseYear();
 		}
-		GameDateMonthChanged?.Invoke(CurrentMonth);
+		GameDateMonthChanged?.Invoke(_currentMonth);
 	}
 
 	private void IncreaseYear()
 	{
-		CurrentYear++;
-		GameDateYearChanged?.Invoke(CurrentYear);
+		_currentYear++;
+		GameDateYearChanged?.Invoke(_currentYear);
 	}
 }

@@ -2855,7 +2855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d8fd9ccae66d94ab2c8aa48d242fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeMultiplier: 60
+  _timeMultiplier: 100000
 --- !u!4 &603873153
 Transform:
   m_ObjectHideFlags: 0
@@ -3542,7 +3542,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Date
+  m_text: Monday
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ee69591ac02c4294bba2acfce3547b5d, type: 2}
   m_sharedMaterial: {fileID: -8711871689692211116, guid: ee69591ac02c4294bba2acfce3547b5d, type: 2}
@@ -3739,6 +3739,7 @@ MonoBehaviour:
   _lifeText: {fileID: 1688873539}
   _fadeImage: {fileID: 1983011574}
   _timeText: {fileID: 337314249}
+  _dayText: {fileID: 836773190}
   _dateText: {fileID: 2103917713}
 --- !u!224 &888906086 stripped
 RectTransform:
@@ -6374,9 +6375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebb282ab2b1895498f14aeada0ce086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentDay: 1
-  CurrentMonth: 1
-  CurrentYear: 1
 --- !u!4 &1496657230
 Transform:
   m_ObjectHideFlags: 0
