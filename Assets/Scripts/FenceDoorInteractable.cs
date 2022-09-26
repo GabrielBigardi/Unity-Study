@@ -29,7 +29,6 @@ public class FenceDoorInteractable : MonoBehaviour, IInteractable
 
 	public void Interact()
 	{
-		Debug.Log("fence");
 		_isOpen = !_isOpen;
 
 		if (_isOpen)
