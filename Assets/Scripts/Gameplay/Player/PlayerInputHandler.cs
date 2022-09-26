@@ -16,6 +16,8 @@ public class PlayerInputHandler : MonoBehaviour
     public static event Action<InputAction.CallbackContext> PlayerMouseInput;
 	public static event Action<InputAction.CallbackContext> PlayerInteractionInput;
 	public static event Action<InputAction.CallbackContext> PlayerRemoveInventoryInput;
+    public static event Action<InputAction.CallbackContext> PlayerScrollUpInput;
+    public static event Action<InputAction.CallbackContext> PlayerScrollDownInput;
 
     public void OnMouseMovement(InputAction.CallbackContext ctx)
 	{
@@ -80,5 +82,15 @@ public class PlayerInputHandler : MonoBehaviour
 	public void OnPlayerRemoveInventory(InputAction.CallbackContext ctx)
 	{
 		PlayerRemoveInventoryInput?.Invoke(ctx);
+	}
+
+    public void OnPlayerScrollUp(InputAction.CallbackContext ctx)
+    {
+        PlayerScrollUpInput?.Invoke(ctx);
+    }
+
+	public void OnPlayerScrollDown(InputAction.CallbackContext ctx)
+	{
+		PlayerScrollDownInput?.Invoke(ctx);
 	}
 }

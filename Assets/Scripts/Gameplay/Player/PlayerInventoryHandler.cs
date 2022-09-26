@@ -5,6 +5,7 @@ using GBD.SaveSystem;
 using System;
 using System.Linq;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class PlayerInventory
@@ -16,21 +17,65 @@ public class PlayerInventoryHandler : MonoBehaviour
 {
 	public PlayerInventory PlayerInventory;
 	public List<InventorySlot> InventorySlots = new List<InventorySlot>();
+	[SerializeField] private Image _selectedItemOutline;
 
 	public static event Action<PlayerInventory> PlayerInventoryUpdated;
+
+	private int _selectedItemIndex = 0;
 
 	private void OnEnable()
 	{
 		SaveSystem.GameDataLoaded += OnGameDataLoaded;
 		PlayerFishingHandler.PlayerCatchedFish += AddItem;
+		ItemAdderInteractable.Interacted += AddItem;
 		PlayerInputHandler.PlayerRemoveInventoryInput += OnPlayerRemoveInventoryInput;
+		PlayerInputHandler.PlayerScrollUpInput += OnPlayerScrollUpInput;
+		PlayerInputHandler.PlayerScrollDownInput += OnPlayerScrollDownInput;
+		PlayerInputHandler.PlayerMouseInput += OnPlayerMouseInput;
 	}
 
 	private void OnDisable()
 	{
 		SaveSystem.GameDataLoaded -= OnGameDataLoaded;
 		PlayerFishingHandler.PlayerCatchedFish -= AddItem;
+		ItemAdderInteractable.Interacted -= AddItem;
 		PlayerInputHandler.PlayerRemoveInventoryInput -= OnPlayerRemoveInventoryInput;
+		PlayerInputHandler.PlayerScrollUpInput -= OnPlayerScrollUpInput;
+		PlayerInputHandler.PlayerScrollDownInput -= OnPlayerScrollDownInput;
+		PlayerInputHandler.PlayerMouseInput -= OnPlayerMouseInput;
+	}
+
+	private void Start()
+	{
+		SelectItemIndex(0);
+	}
+
+	private void OnPlayerMouseInput(InputAction.CallbackContext ctx)
+	{
+		if (ctx.started)
+		{
+			if (_selectedItemIndex < PlayerInventory.ItemGUIDs.Count && PlayerInventory.ItemGUIDs[_selectedItemIndex] != null)
+			{
+				var selectedItem = DatabaseManager.Instance.FindItemByGUID(PlayerInventory.ItemGUIDs[_selectedItemIndex]);
+				Debug.Log($"Trying to use {selectedItem.Name}");
+				if(selectedItem is IUsable itemUsable)
+				{
+					itemUsable.Use();
+				}
+			}
+		}
+	}
+
+	private void OnPlayerScrollDownInput(InputAction.CallbackContext ctx)
+	{
+		if(ctx.started)
+			SelectItemIndex(_selectedItemIndex + 1);
+	}
+
+	private void OnPlayerScrollUpInput(InputAction.CallbackContext ctx)
+	{
+		if (ctx.started)
+			SelectItemIndex(_selectedItemIndex - 1);
 	}
 
 	private void OnPlayerRemoveInventoryInput(InputAction.CallbackContext ctx)
@@ -125,5 +170,20 @@ public class PlayerInventoryHandler : MonoBehaviour
 			inventorySlot.SlotAmount = 0;
 			inventorySlot.RefreshSlot();
 		}
+	}
+
+	private void SelectItemIndex(int index)
+	{
+		if (index > InventorySlots.Count - 1)
+		{
+			index = 0;
+		}else if (index < 0)
+		{
+			index = InventorySlots.Count - 1;
+		}
+
+		_selectedItemIndex = index;
+
+		_selectedItemOutline.rectTransform.anchoredPosition = InventorySlots[index].GetComponent<RectTransform>().anchoredPosition;
 	}
 }
