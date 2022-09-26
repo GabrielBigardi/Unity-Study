@@ -12,7 +12,7 @@ public class HoeItem : Item, IUsable
 	[SerializeField] private Tile _tileToSet;
 	public bool RemoveOnUse => false;
 
-	public void Use()
+	public bool Use()
     {
         var worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         var grid = GameObject.Find("Ground").GetComponent<Tilemap>();
@@ -22,6 +22,9 @@ public class HoeItem : Item, IUsable
 		if (tileAtPos != null && _tileToCheck.Contains(tileAtPos))
         {
             grid.SetTile(tilePos, _tileToSet);
+            return true;
         }
+
+        return false;
 	}
 }

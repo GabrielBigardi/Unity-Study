@@ -13,7 +13,7 @@ public class WateringItem : Item, IUsable
 	[SerializeField] private Tile[] _tileToSet;
 	public bool RemoveOnUse => false;
 
-	public void Use()
+	public bool Use()
 	{
 		var worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 		var grid = GameObject.Find("Ground").GetComponent<Tilemap>();
@@ -24,10 +24,9 @@ public class WateringItem : Item, IUsable
 		{
 			var index = Array.FindIndex(_tileToCheck, x => x == tileAtPos);
 			grid.SetTile(tilePos, _tileToSet[index]);
+			return true;
 		}
-		else
-		{
-			Debug.Log(tileAtPos.name);
-		}
+
+		return false;
 	}
 }

@@ -61,8 +61,8 @@ public class PlayerInventoryHandler : MonoBehaviour
 				Debug.Log($"Trying to use {selectedItem.Name} at index {_selectedItemIndex}");
 				if(selectedItem is IUsable itemUsable)
 				{
-					itemUsable.Use();
-					if (itemUsable.RemoveOnUse)
+					var usedSucessfully = itemUsable.Use();
+					if (usedSucessfully && itemUsable.RemoveOnUse)
 					{
 						var itemIndex = PlayerInventory.ItemGUIDs.FindIndex(x => x == selectedItem.GUID);
 						PlayerInventory.ItemAmount[itemIndex]--;
