@@ -16,4 +16,9 @@ MonoBehaviour:
   Name: Default Hoe
   Description: 
   Sprite: {fileID: 21300000, guid: c7d87c59b44eeae46ae5aecea69ccb64, type: 3}
+  _tileToCheck:
+  - {fileID: 11400000, guid: 9b3baec48f914e54b9fbbebde5ae47ca, type: 2}
+  - {fileID: 11400000, guid: 376941b1677addd4ba76472300b93717, type: 2}
+  - {fileID: 11400000, guid: 11b8ba6f3a680e648b4cc5a7f58e517a, type: 2}
+  - {fileID: 11400000, guid: ac03f1bfb9a859f4bb5dc8ed897855f0, type: 2}
   _tileToSet: {fileID: 11400000, guid: 195889f20f2b8cf40bc127d084514826, type: 2}

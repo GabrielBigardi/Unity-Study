@@ -10,7 +10,8 @@ using UnityEngine.UI;
 [System.Serializable]
 public class PlayerInventory
 {
-	public List<string> ItemGUIDs = new(); 
+	public List<string> ItemGUIDs = new();
+	public List<int> ItemAmount = new();
 }
 
 public class PlayerInventoryHandler : MonoBehaviour
@@ -57,10 +58,27 @@ public class PlayerInventoryHandler : MonoBehaviour
 			if (_selectedItemIndex < PlayerInventory.ItemGUIDs.Count && PlayerInventory.ItemGUIDs[_selectedItemIndex] != null)
 			{
 				var selectedItem = DatabaseManager.Instance.FindItemByGUID(PlayerInventory.ItemGUIDs[_selectedItemIndex]);
-				Debug.Log($"Trying to use {selectedItem.Name}");
+				Debug.Log($"Trying to use {selectedItem.Name} at index {_selectedItemIndex}");
 				if(selectedItem is IUsable itemUsable)
 				{
 					itemUsable.Use();
+					if (itemUsable.RemoveOnUse)
+					{
+						var itemIndex = PlayerInventory.ItemGUIDs.FindIndex(x => x == selectedItem.GUID);
+						PlayerInventory.ItemAmount[itemIndex]--;
+
+						if (PlayerInventory.ItemAmount[itemIndex] <= 0)
+						{
+							PlayerInventory.ItemGUIDs.Remove(selectedItem.GUID);
+							PlayerInventory.ItemAmount.RemoveAt(itemIndex);
+							RefreshInventory();
+						}
+						else
+						{
+							//InventorySlots.Find(x => x.SlotItem == selectedItem).RefreshSlot();
+							RefreshInventory();
+						}
+					}
 				}
 			}
 		}
@@ -105,6 +123,7 @@ public class PlayerInventoryHandler : MonoBehaviour
 				slot.SlotAmount += 1;
 				slot.RefreshSlot();
 				PlayerInventory.ItemGUIDs.Add(addedItem.GUID);
+				PlayerInventory.ItemAmount.Add(1);
 				PlayerInventoryUpdated?.Invoke(PlayerInventory);
 				return true;
 			}
@@ -112,7 +131,8 @@ public class PlayerInventoryHandler : MonoBehaviour
 			{
 				slot.SlotAmount += 1;
 				slot.RefreshSlot();
-				PlayerInventory.ItemGUIDs.Add(addedItem.GUID);
+				PlayerInventory.ItemAmount[PlayerInventory.ItemGUIDs.FindIndex(x => x == addedItem.GUID)] += 1;
+				//PlayerInventory.ItemGUIDs.Add(addedItem.GUID);
 				PlayerInventoryUpdated?.Invoke(PlayerInventory);
 				return true;
 			}
@@ -147,12 +167,12 @@ public class PlayerInventoryHandler : MonoBehaviour
 				if (inventorySlot.SlotItem == null)
 				{
 					inventorySlot.SlotItem = itemToCheck;
-					inventorySlot.SlotAmount++;
+					inventorySlot.SlotAmount = PlayerInventory.ItemAmount[PlayerInventory.ItemGUIDs.FindIndex(x => x == itemID)];
 					inventorySlot.RefreshSlot();
 					break;
 				}else if (inventorySlot.SlotItem.GUID == itemToCheck.GUID)
 				{
-					inventorySlot.SlotAmount++;
+					inventorySlot.SlotAmount = PlayerInventory.ItemAmount[PlayerInventory.ItemGUIDs.FindIndex(x => x == itemID)];
 					inventorySlot.RefreshSlot();
 					break;
 				}
@@ -163,6 +183,7 @@ public class PlayerInventoryHandler : MonoBehaviour
 	private void ClearInventory()
 	{
 		PlayerInventory.ItemGUIDs.Clear();
+		PlayerInventory.ItemAmount.Clear();
 
 		foreach (var inventorySlot in InventorySlots)
 		{
@@ -170,6 +191,18 @@ public class PlayerInventoryHandler : MonoBehaviour
 			inventorySlot.SlotAmount = 0;
 			inventorySlot.RefreshSlot();
 		}
+	}
+
+	public void RefreshInventory()
+	{
+		foreach (var inventorySlot in InventorySlots)
+		{
+			inventorySlot.SlotItem = null;
+			inventorySlot.SlotAmount = 0;
+			inventorySlot.RefreshSlot();
+		}
+
+		LoadUIInventorySlots();
 	}
 
 	private void SelectItemIndex(int index)

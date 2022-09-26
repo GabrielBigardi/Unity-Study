@@ -6,12 +6,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Game/Seed Item")]
-public class SeedItem : Item, IUsable
+[CreateAssetMenu(fileName = "New Item", menuName = "Game/Watering Item")]
+public class WateringItem : Item, IUsable
 {
 	[SerializeField] private Tile[] _tileToCheck;
 	[SerializeField] private Tile[] _tileToSet;
-	public bool RemoveOnUse => true;
+	public bool RemoveOnUse => false;
 
 	public void Use()
 	{
@@ -24,6 +24,10 @@ public class SeedItem : Item, IUsable
 		{
 			var index = Array.FindIndex(_tileToCheck, x => x == tileAtPos);
 			grid.SetTile(tilePos, _tileToSet[index]);
+		}
+		else
+		{
+			Debug.Log(tileAtPos.name);
 		}
 	}
 }

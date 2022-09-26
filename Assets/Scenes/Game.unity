@@ -1628,6 +1628,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerInventory:
     ItemGUIDs: []
+    ItemAmount: 
   InventorySlots:
   - {fileID: 888906087}
   - {fileID: 1452310295}
@@ -2785,14 +2786,14 @@ PrefabInstance:
     - target: {fileID: 4655332475366368353, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: _itemToDrop
       value: 
-      objectReference: {fileID: 11400000, guid: f7ac8436083564f4f899f9fa81f229c5, type: 2}
+      objectReference: {fileID: 11400000, guid: 2b7c59c0fc295d94ab48ba338c097e79, type: 2}
     - target: {fileID: 4809260275718376850, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_Name
       value: ItemAdder (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376850, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376860, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_RootOrder
@@ -2800,7 +2801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376860, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.93
+      value: -3.42
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376860, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6665,7 +6666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376850, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376860, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_RootOrder
@@ -6673,7 +6674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376860, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.19
+      value: -4.45
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376860, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22946,6 +22947,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b10808360b40aee4aa2d67ce1bf9225e, type: 2}
   - {fileID: 11400000, guid: f4b0d1647de71fa45977f05b721674b8, type: 2}
   - {fileID: 11400000, guid: f7ac8436083564f4f899f9fa81f229c5, type: 2}
+  - {fileID: 11400000, guid: 2b7c59c0fc295d94ab48ba338c097e79, type: 2}
 --- !u!4 &1832445009
 Transform:
   m_ObjectHideFlags: 0
@@ -23649,7 +23651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376850, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376860, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_RootOrder
