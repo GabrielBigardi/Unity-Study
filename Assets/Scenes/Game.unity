@@ -1629,6 +1629,7 @@ MonoBehaviour:
   PlayerInventory:
     ItemGUIDs: []
     ItemAmount: 
+    ItemData: []
   InventorySlots:
   - {fileID: 888906087}
   - {fileID: 1452310295}
@@ -2793,7 +2794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376850, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376860, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_RootOrder
@@ -6666,7 +6667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376850, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376860, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_RootOrder
@@ -23651,7 +23652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376850, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4809260275718376860, guid: daae0decfcb8c5a4dabb547dc9a8246c, type: 3}
       propertyPath: m_RootOrder
