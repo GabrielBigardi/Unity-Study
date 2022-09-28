@@ -13,9 +13,9 @@ public class WateringItem : Item, IUsable
 	[SerializeField] private Tile[] _tileToSet;
 	public bool RemoveOnUse => false;
 
-	public bool Use()
+	public bool Use(PlayerCore playerCore)
 	{
-		var worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+		var worldPos = (Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - playerCore.transform.position).normalized;
 		var grid = GameObject.Find("Ground").GetComponent<Tilemap>();
 		var tilePos = grid.WorldToCell(worldPos);
 		var tileAtPos = grid.GetTile(tilePos);

@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 
 [System.Serializable]
 public class PlayerInventory
@@ -61,7 +62,7 @@ public class PlayerInventoryHandler : MonoBehaviour
 				Debug.Log($"Trying to use {selectedItem.Name} at index {_selectedItemIndex}");
 				if(selectedItem is IUsable itemUsable)
 				{
-					var usedSucessfully = itemUsable.Use();
+					var usedSucessfully = itemUsable.Use(GetComponent<PlayerCore>());
 					if (usedSucessfully && itemUsable.RemoveOnUse)
 					{
 						var itemIndex = PlayerInventory.ItemGUIDs.FindIndex(x => x == selectedItem.GUID);

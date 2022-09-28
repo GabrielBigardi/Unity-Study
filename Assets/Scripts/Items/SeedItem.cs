@@ -13,7 +13,7 @@ public class SeedItem : Item, IUsable
 	[SerializeField] private Tile[] _tileToSet;
 	public bool RemoveOnUse => true;
 
-	public bool Use()
+	public bool Use(PlayerCore playerCore)
 	{
 		var worldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 		var grid = GameObject.Find("Ground").GetComponent<Tilemap>();
