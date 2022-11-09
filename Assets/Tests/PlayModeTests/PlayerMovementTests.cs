@@ -8,49 +8,49 @@ public class PlayerMovementTests
 {
     [UnityTest]
     [RequiresPlayMode]
-    public IEnumerator MoveNorth()
+    public IEnumerator Move_ChangePosition_Up()
     {
-        var gameObject = new GameObject();
-        var playerMovement = gameObject.AddComponent<PlayerMovement>();
+        var playerObject = new GameObject();
+        var playerMovement = playerObject.AddComponent<PlayerMovement>();
         playerMovement.IsTestObject = true;
-        playerMovement.Move(gameObject.transform, gameObject.transform.position + Vector3.up, 0.1f);
-        yield return new WaitForSeconds(0.1f);
-        Assert.AreEqual(gameObject.transform.position, Vector3.up);
+        playerMovement.Move(playerObject.transform, playerObject.transform.position + Vector3.up, 0.01f);
+        yield return new WaitForSeconds(0.01f);
+        Assert.AreEqual(playerObject.transform.position, Vector3.up);
     }
     
     [UnityTest]
     [RequiresPlayMode]
-    public IEnumerator MoveLeft()
+    public IEnumerator Move_ChangePosition_Left()
     {
-        var gameObject = new GameObject();
-        var playerMovement = gameObject.AddComponent<PlayerMovement>();
+        var playerObject = new GameObject();
+        var playerMovement = playerObject.AddComponent<PlayerMovement>();
         playerMovement.IsTestObject = true;
-        playerMovement.Move(gameObject.transform, gameObject.transform.position + Vector3.left, 0.1f);
-        yield return new WaitForSeconds(0.1f);
-        Assert.AreEqual(gameObject.transform.position, Vector3.left);
+        playerMovement.Move(playerObject.transform, playerObject.transform.position + Vector3.left, 0.01f);
+        yield return new WaitForSeconds(0.01f);
+        Assert.AreEqual(playerObject.transform.position, Vector3.left);
     }
     
     [UnityTest]
     [RequiresPlayMode]
-    public IEnumerator MoveRight()
+    public IEnumerator Move_ChangePosition_Right()
     {
-        var gameObject = new GameObject();
-        var playerMovement = gameObject.AddComponent<PlayerMovement>();
+        var playerObject = new GameObject();
+        var playerMovement = playerObject.AddComponent<PlayerMovement>();
         playerMovement.IsTestObject = true;
-        playerMovement.Move(gameObject.transform, gameObject.transform.position + Vector3.right, 0.1f);
-        yield return new WaitForSeconds(0.1f);
-        Assert.AreEqual(gameObject.transform.position, Vector3.right);
+        playerMovement.Move(playerObject.transform, playerObject.transform.position + Vector3.right, 0.01f);
+        yield return new WaitForSeconds(0.01f);
+        Assert.AreEqual(playerObject.transform.position, Vector3.right);
     }
     
     [UnityTest]
     [RequiresPlayMode]
-    public IEnumerator MoveSouth()
+    public IEnumerator Move_ChangePosition_Down()
     {
-        var gameObject = new GameObject();
-        var playerMovement = gameObject.AddComponent<PlayerMovement>();
+        var playerObject = new GameObject();
+        var playerMovement = playerObject.AddComponent<PlayerMovement>();
         playerMovement.IsTestObject = true;
-        playerMovement.Move(gameObject.transform, gameObject.transform.position + Vector3.down, 0.1f);
-        yield return new WaitForSeconds(0.1f);
-        Assert.AreEqual(gameObject.transform.position, Vector3.down);
+        playerMovement.Move(playerObject.transform, playerObject.transform.position + Vector3.down, 0.01f);
+        yield return new WaitForSeconds(0.01f);
+        Assert.AreEqual(playerObject.transform.position, Vector3.down);
     }
 }
