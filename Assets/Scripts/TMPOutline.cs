@@ -4,7 +4,9 @@ using UnityEngine;
 using TMPro;
 using System;
 
-internal class Outline
+namespace GBD.Utils
+{
+    internal class Outline
 {
     public RectTransform RectTransform;
     public Vector2 Offset;
@@ -154,4 +156,5 @@ public class TMPOutline : MonoBehaviour
 
         _mainText.color = MainTextColor;
     }
+}
 }

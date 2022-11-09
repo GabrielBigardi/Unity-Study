@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 	public Vector2 MovePos;
 	public float MoveDuration;
 	bool CanMove = true;
+	public bool IsTestObject = false;
 
 	public bool CanWalkTo(Vector2 point) => !Physics2D.OverlapCircle(MovePos, 0.1f, WhatIsNotWalkable);
 
@@ -38,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Update()
 	{
+		if (IsTestObject)
+			return;
+		
 		if (_playerCore.PlayerInputHandler.PlayerInput != Vector2.zero && !IsMoving && CanMove)
 		{
 			MovePos = (Vector2)transform.position + _playerCore.PlayerInputHandler.PlayerInput;

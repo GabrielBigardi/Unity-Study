@@ -3804,7 +3804,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6269733898144999932, guid: 6e49148f5abc29f49a62418151432132, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6269733898144999932, guid: 6e49148f5abc29f49a62418151432132, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3943,7 +3943,6 @@ GameObject:
   m_Component:
   - component: {fileID: 912313693}
   - component: {fileID: 912313696}
-  - component: {fileID: 912313694}
   - component: {fileID: 912313697}
   m_Layer: 0
   m_Name: Event System
@@ -3967,18 +3966,6 @@ Transform:
   m_Father: {fileID: 1054750851}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &912313694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 912313692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dfe135108c08d54d8978d026b05b601, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &912313696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6068,7 +6055,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 31241722721282509, guid: b355683273e119340a7d9ba39569ccd8, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 31241722721282509, guid: b355683273e119340a7d9ba39569ccd8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6634,7 +6621,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1505737567
